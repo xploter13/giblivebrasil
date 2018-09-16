@@ -4,8 +4,8 @@
  * Last change:  
  -----------------------------------------*/
 
-BASEURL = 'http://localhost:8080/novogiblivebrasil/';
-//BASEURL = 'https://geniosmidia.com.br/homologacao/novogiblivebrasil/';
+//BASEURL = 'http://localhost:8080/novogiblivebrasil/';
+BASEURL = 'https://www.giblivebrasil.com.br/';
 
 /**
  * GENERAL

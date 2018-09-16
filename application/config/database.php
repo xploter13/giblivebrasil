@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$active_group = 'localhost';
+$active_group = 'production';
 $query_builder = TRUE;
 
 $db['localhost'] = array(
@@ -26,12 +26,12 @@ $db['localhost'] = array(
 	'save_queries' => TRUE
 );
 
-$db['producao'] = array(
+$db['production'] = array(
 	'dsn'	=> '',
-	'hostname' => 'mysql.geniosmidia.com.br',
-	'username' => 'geniosmidia',
-	'password' => 'a1b2c309',
-	'database' => 'geniosmidia',
+	'hostname' => 'ip-45-56-70-39.cloudezapp.io',
+	'username' => 'app719',
+	'password' => 'xIeUToUW^vbc*5NWCRS)o',
+	'database' => 'app719',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
