@@ -4,8 +4,10 @@
  * Last change:  
  -----------------------------------------*/
 
-//BASEURL = 'http://localhost:8080/novogiblivebrasil/';
-BASEURL = 'https://www.giblivebrasil.com.br/';
+//Production
+//BASEURL = window.location.origin + '/';
+//Localhost
+BASEURL = window.location.origin + '/giblivebrasil/';
 
 /**
  * GENERAL
@@ -58,7 +60,7 @@ $('#frm-login').validator().on('submit', function(e) {
         //console.log(dados);
         $.ajax({
             type: 'POST',
-            url: 'home/check_login',
+            url: BASEURL + 'home/check_login',
             data: dados,
             beforeSend: function() {
                 $("#btn-submit-login").html('Carregando...' + ' <img src="assets/img/gif/ajax-loader.gif">');

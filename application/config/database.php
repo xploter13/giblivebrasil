@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$active_group = 'production';
+$active_group = 'localhost';
 $query_builder = TRUE;
 
 $db['localhost'] = array(
