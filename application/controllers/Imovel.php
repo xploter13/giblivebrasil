@@ -38,9 +38,10 @@ class Imovel extends CI_Controller
     
     public function __construct() {
         parent::__construct();
-        $this->load->library('convert_coin');
         $this->load->model('Model_Imovel');
-    }    
+        $this->load->model('Model_Proprietario');
+        $this->load->model('Model_Loading_State');
+    }
 
     public function index() {
         if (isset($_SESSION['session'])) :            
@@ -63,7 +64,6 @@ class Imovel extends CI_Controller
             $session = $this->session->userdata('session');
             
         //retorna todos os proprietarios
-        $this->load->model('Model_Imovel');
         $data['galery'] = $this->Model_Imovel->_selectGalery($session->id);
 
         //Atribui o nome armazenado na sessao
@@ -86,14 +86,13 @@ class Imovel extends CI_Controller
             $session = $this->session->userdata('session');
 
         //retorna todos os estados
-        $this->load->model('Model_Loading_State');
+        
         $this->_state = $this->Model_Loading_State->_getState();
         if ($this->_state) :
                 $data['state'] = $this->_state;
         endif;
 
         //retorna todos os proprietarios
-        $this->load->model('Model_Proprietario');
         $data['propri'] = $this->Model_Proprietario->_selectAll($session->id);
 
         //Atribui o nome armazenado na sessao
@@ -113,17 +112,15 @@ class Imovel extends CI_Controller
             $session = $this->session->userdata('session');
 
         //retorna todos os estados
-        $this->load->model('Model_Loading_State');
         $this->_state = $this->Model_Loading_State->_getState();
         if ($this->_state) :
                 $data['state'] = $this->_state;
         endif;
 
-        $this->load->model('Model_Imovel');
         $data['data_imo'] = $this->Model_Imovel->_selectById($id);
             
         //retorna todos os proprietarios
-        $this->load->model('Model_Proprietario');
+        
         $data['propri'] = $this->Model_Proprietario->_selectAll($session->id);
 
         //Atribui o nome armazenado na sessao
@@ -160,10 +157,10 @@ class Imovel extends CI_Controller
         $this->cep = $this->input->post('edtCep');
         $this->bairro = $this->input->post('edtBairro');
         $this->tipoNegociacao = $this->input->post('cmbTipoNegociacao');
-        $this->valorImovel = $this->convert_coin->coin("EN", 2, $this->input->post('edtValorImovel'));
-        $this->valorIPTUMensal = $this->convert_coin->coin("EN", 2, $this->input->post('edtValorIptuMensal'));
-        $this->valorIPTUAnual = $this->convert_coin->coin("EN", 2, $this->input->post('edtValorIptuAnual'));
-        $this->taxaExtra = $this->convert_coin->coin("EN", 2, $this->input->post('edtTaxasExtras'));
+        $this->valorImovel = $this->convert_money->coin("EN", 2, $this->input->post('edtValorImovel'));
+        $this->valorIPTUMensal = $this->convert_money->coin("EN", 2, $this->input->post('edtValorIptuMensal'));
+        $this->valorIPTUAnual = $this->convert_money->coin("EN", 2, $this->input->post('edtValorIptuAnual'));
+        $this->taxaExtra = $this->convert_money->coin("EN", 2, $this->input->post('edtTaxasExtras'));
         $this->descExtra = $this->input->post('edtDescricaoTaxa');
         $this->ObsFinanceiro = $this->input->post('txtObservacao');
 
@@ -174,7 +171,7 @@ class Imovel extends CI_Controller
         if(!empty($_FILES['image']['name'])) {
             // Pasta onde o arquivo vai ser salvo
             //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/assets/uploads/';
-            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/novogiblivebrasil/assets/uploads/';
+            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/giblivebrasil/assets/uploads/';
             //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/homologacao/novogiblivebrasil/assets/uploads/';
 
             $filesCount = count(array_filter($_FILES['image']['name']));
@@ -187,10 +184,14 @@ class Imovel extends CI_Controller
                 $nome_final[$i] = md5($_FILES['image']['name'][$i]) . '.jpg';
 
                 // Depois verifica se é possível mover o arquivo para a pasta escolhida
-               move_uploaded_file($_FILES['image']['tmp_name'][$i], $_UP['pasta'] . $nome_final[$i]);
+               move_uploaded_file($_FILES['image']['tmp_name'][$i], $_UP['pasta'] . $nome_final[$i]);               
             }
-            
-           $this->img = implode(";", $nome_final);
+                        
+            $this->img = implode(";", $nome_final);
+
+            echo "<pre>";
+            print_r($nome_final[1]);
+            echo "</pre>";
             
             $this->_arrdata = array(
                 "id_usuario" => $session->id,
@@ -224,12 +225,12 @@ class Imovel extends CI_Controller
                 "imo_excluido" => '0'
             );
 
-            $this->_return = $this->Model_Imovel->_insert($this->_arrdata);
+            /*$this->_return = $this->Model_Imovel->_insert($this->_arrdata);
             if ($this->_return) :
                 echo 'TRUE'; 
             else :
                 echo 'FALSE';
-            endif;
+            endif;*/
         } else {
             $this->_arrdata = array(
                 "id_usuario" => $session->id,
@@ -279,14 +280,8 @@ class Imovel extends CI_Controller
      * executa a edição dos dados na tabela
      */
 
-    public function setEdit()
-    {
+    public function setEdit() {
         $session = $this->session->userdata('session');
-
-        $this->load->library('convert_coin');
-
-        $this->load->model('Model_Imovel');
-
         $this->id =  $this->input->post('edtID');
         $this->proprietario = $this->input->post('cmbPropri');
         $this->descricao = $this->input->post('edtDescricao');
@@ -307,15 +302,12 @@ class Imovel extends CI_Controller
         $this->cep = $this->input->post('edtCep');
         $this->bairro = $this->input->post('edtBairro');
         $this->tipoNegociacao = $this->input->post('cmbTipoNegociacao');
-
-        $this->valorImovel = $this->convert_coin->coin("EN", 2, $this->input->post('edtValorImovel'));
-        $this->valorIPTUMensal = $this->convert_coin->coin("EN", 2, $this->input->post('edtValorIptuMensal'));
-        $this->valorIPTUAnual = $this->convert_coin->coin("EN", 2, $this->input->post('edtValorIptuAnual'));
-        $this->taxaExtra = $this->convert_coin->coin("EN", 2, $this->input->post('edtTaxasExtras'));
-
+        $this->valorImovel = $this->convert_money->coin("EN", 2, $this->input->post('edtValorImovel'));
+        $this->valorIPTUMensal = $this->convert_money->coin("EN", 2, $this->input->post('edtValorIptuMensal'));
+        $this->valorIPTUAnual = $this->convert_money->coin("EN", 2, $this->input->post('edtValorIptuAnual'));
+        $this->taxaExtra = $this->convert_money->coin("EN", 2, $this->input->post('edtTaxasExtras'));
         $this->descExtra = $this->input->post('edtDescricaoTaxa');
         $this->ObsFinanceiro = $this->input->post('txtObservacao');
-
 
         /**
          * UPLOAD IMAGEM
@@ -323,61 +315,23 @@ class Imovel extends CI_Controller
         if (!empty($_FILES['image']['name'])) {
 
             // Pasta onde o arquivo vai ser salvo
-            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/novogiblivebrasil/assets/uploads/';
+            //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/assets/uploads/';
+            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/giblivebrasil/assets/uploads/';
 
-            // Tamanho máximo do arquivo (em Bytes)
-            $_UP['tamanho'] = 1024 * 1024 * 2; // 2Mb
-            // Array com as extensões permitidas
-            $_UP['extensoes'] = array("jpg", "png", "gif", "bmp", "jpeg");
+            $filesCount = count(array_filter($_FILES['image']['name']));
+            for($i = 0; $i < $filesCount; $i++){
 
-            // Renomeia o arquivo? (Se true, o arquivo será salvo como .jpg e um nome único)
-            $_UP['renomeia'] = true;
+                // Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
+                // Faz a verificação da extensão do arquivo
+                $extensao = @strtolower(end(explode('.', $_FILES['image']['name'][$i])));
 
-            // Array com os tipos de erros de upload do PHP
-            $_UP['erros'][0] = 'Não houve erro';
-            $_UP['erros'][1] = 'O arquivo no upload é maior do que o limite do PHP';
-            $_UP['erros'][2] = 'O arquivo ultrapassa o limite de tamanho especifiado no HTML';
-            $_UP['erros'][3] = 'O upload do arquivo foi feito parcialmente';
-            $_UP['erros'][4] = 'Não foi feito o upload do arquivo';
+                $nome_final[$i] = md5($_FILES['image']['name'][$i]) . '.jpg';
 
-            // Verifica se houve algum erro com o upload. Se sim, exibe a mensagem do erro
-            if ($_FILES['image']['error'] != 0) {
-                die("Não foi possível fazer o upload, erro:" . $_UP['erros'][$_FILES['arquivo']['error']]);
-                exit; // Para a execução do script
+                // Depois verifica se é possível mover o arquivo para a pasta escolhida
+               move_uploaded_file($_FILES['image']['tmp_name'][$i], $_UP['pasta'] . $nome_final[$i]);
             }
-
-            // Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
-            // Faz a verificação da extensão do arquivo
-            $extensao = @strtolower(end(explode('.', $_FILES['image']['name'])));
-
-            if (array_search($extensao, $_UP['extensoes']) === false) {
-                echo "Por favor, envie arquivos com as seguintes extensões: jpg, png ou gif";
-                exit;
-            }
-
-            // Faz a verificação do tamanho do arquivo
-            if ($_UP['tamanho'] < $_FILES['image']['size']) {
-                echo "O arquivo enviado é muito grande, envie arquivos de até 2Mb.";
-                exit;
-            }
-
-            // O arquivo passou em todas as verificações, hora de tentar movê-lo para a pasta
-            // Primeiro verifica se deve trocar o nome do arquivo
-            if ($_UP['renomeia'] == true) {
-                // Cria um nome baseado no UNIX TIMESTAMP atual e com extensão .jpg
-                $nome_final = md5($_FILES['image']['name']) . '.jpg';
-            } else {
-                // Mantém o nome original do arquivo
-                $nome_final = $_FILES['image']['name'];
-            }
-
-            // Depois verifica se é possível mover o arquivo para a pasta escolhida
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $_UP['pasta'] . $nome_final)) {
-                $this->img = $nome_final;
-            } else {
-                // Não foi possível fazer o upload, provavelmente a pasta está incorreta
-                echo "Não foi possível enviar o arquivo, tente novamente";
-            }
+            
+           $this->img = implode(";", $nome_final);
 
             $this->_arrdata = array(
                 "id_proprietario" => $this->proprietario,
@@ -456,7 +410,8 @@ class Imovel extends CI_Controller
             
             $this->_return = $this->Model_Imovel->_edit($this->id, $this->_arrdata);
             if ($this->_return) :
-                echo 'TRUE'; else :
+                echo 'TRUE'; 
+            else :
                 echo 'FALSE';
             endif;
         }
@@ -466,18 +421,15 @@ class Imovel extends CI_Controller
      * executa a exclusao dos dados na tabela
      */
 
-    public function setDelete()
-    {
-        $this->load->model('Model_Imovel');
+    public function setDelete() {
         $this->id = $this->input->post('id');
-
         $this->_arrdata = array(
             "imo_excluido" => '1'
         );
-
         $this->_return = $this->Model_Imovel->_edit($this->id, $this->_arrdata);
         if ($this->_return) :
-            echo "TRUE"; else :
+            echo "TRUE"; 
+        else :
             echo "FALSE";
         endif;
     }

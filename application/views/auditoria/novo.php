@@ -73,7 +73,9 @@
                                 <div class="msg"></div>
                                 <form id="frm-audi">
                                     <fieldset>
-                                        <legend>Dados Básicos</legend>
+                                        <div class="col-md-12">
+                                            <legend>Dados Básicos</legend>
+                                        </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="cmbImoble">Imóvel</label>
@@ -96,7 +98,9 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <legend>Quarto(s) e Sala(s)</legend>
+                                        <div class="col-md-12">
+                                            <legend>Quarto(s) e Sala(s)</legend>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbHoursAtt">Tomadas - Espelhos</label>
@@ -175,7 +179,9 @@
                                                 <textarea name="cmbObsQtSala" class="form-control" id="cmbObsQtSala" rows="8" cols="50"></textarea>
                                             </div>
                                         </div>
-                                        <legend>Cozinha</legend>  
+                                        <div class="col-md-12">
+                                            <legend>Cozinha</legend>  
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbTorn">Torneira</label>
@@ -278,7 +284,9 @@
                                                 <textarea name="cmbObsCozinha" class="form-control" id="cmbObsCozi" rows="8" cols="50"></textarea>
                                             </div>
                                         </div>
-                                        <legend>Banheiro</legend>  
+                                        <div class="col-md-12">
+                                            <legend>Banheiro</legend>  
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbTornBanh">Torneira</label>
@@ -417,7 +425,9 @@
                                                 <textarea name="obsBanh" class="form-control" id="ObsBanh" rows="8" cols="50"></textarea>
                                             </div>
                                         </div>
-                                        <legend>Área de Serviço</legend>  
+                                        <div class="col-md-12">
+                                            <legend>Área de Serviço</legend>  
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbTornAreaService">Torneira</label>

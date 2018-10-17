@@ -28,10 +28,32 @@ $db['localhost'] = array(
 
 $db['production'] = array(
 	'dsn'	=> '',
-	'hostname' => 'ip-45-56-70-39.cloudezapp.io',
-	'username' => 'app719',
-	'password' => 'xIeUToUW^vbc*5NWCRS)o',
-	'database' => 'app719',
+	'hostname' => 'mysql.giblivebrasil.com.br',
+	'username' => 'giblivebrasil',
+	'password' => 'eJN2KNFYr3AUGY8',
+	'database' => 'giblivebrasil',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+
+$db['homologation'] = array(
+	'dsn'	=> '',
+	'hostname' => 'mysql.giblivebrasil.com.br',
+	'username' => 'giblivebrasil01',
+	'password' => 'eJN2KNFYr3AUGY8',
+	'database' => 'giblivebrasil01',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
