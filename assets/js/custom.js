@@ -5,9 +5,9 @@
  -----------------------------------------*/
 
 //Production
-//BASEURL = window.location.origin + '/';
+BASEURL = window.location.origin + '/';
 //Localhost
-BASEURL = window.location.origin + '/giblivebrasil/';
+//BASEURL = window.location.origin + '/giblivebrasil/';
 
 /**
  * GENERAL
@@ -57,7 +57,7 @@ $('#frm-login').validator().on('submit', function(e) {
         console.log('Validou!!');
     } else {
         var dados = $(this).serialize();
-        //console.log(dados);
+        console.log(dados);
         $.ajax({
             type: 'POST',
             url: BASEURL + 'home/check_login',
@@ -66,15 +66,16 @@ $('#frm-login').validator().on('submit', function(e) {
                 $("#btn-submit-login").html('Carregando...' + ' <img src="assets/img/gif/ajax-loader.gif">');
             },
             success: function(data) {
-                // console.log(data);
+                console.log(data);
                 if (data === 'TRUE') {
-                    $(location).attr('href', 'dashboard');
+                    $(location).attr('href', BASEURL + 'dashboard');
                 } else if (data === 'FALSE') {
                     msg('Login ou Senha inválidos!', 'erro');
                     $("#btn-submit-login").html('Entrar');
                 }
             },
             error: function() {
+                console.log(data);
                 msg("Erro ao logar, consulte o administrador do sistema!", "erro");
                 $("#btn-submit-login").html('Entrar');
             }
