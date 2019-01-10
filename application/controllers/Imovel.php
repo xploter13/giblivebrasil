@@ -172,8 +172,8 @@ class Imovel extends CI_Controller
         // If file upload form submitted
         if (!empty($_FILES['image']['name'])) {
             // Pasta onde o arquivo vai ser salvo
-            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'].'/assets/uploads/';
-            //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/giblivebrasil/assets/uploads/';
+            //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'].'/assets/uploads/';
+            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/giblivebrasil/assets/uploads/';
             //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/homologacao/novogiblivebrasil/assets/uploads/';
 
             $filesCount = count(array_filter($_FILES['image']['name']));
@@ -190,9 +190,9 @@ class Imovel extends CI_Controller
 
             $this->img = implode(';', $nome_final);
 
-            echo '<pre>';
+            /*echo '<pre>';
             print_r($nome_final[1]);
-            echo '</pre>';
+            echo '</pre>';*/
 
             $this->_arrdata = array(
                 'id_usuario' => $session->id,
@@ -226,12 +226,17 @@ class Imovel extends CI_Controller
                 'imo_excluido' => '0',
             );
 
-        /*$this->_return = $this->Model_Imovel->_insert($this->_arrdata);
-        if ($this->_return) :
-            echo 'TRUE';
-        else :
-            echo 'FALSE';
-        endif;*/
+
+            echo "<pre>";
+                print_r($this->_arrdata);
+            echo "</pre>";
+
+            /*$this->_return = $this->Model_Imovel->_insert($this->_arrdata);
+            if ($this->_return) :
+                echo 'TRUE'; 
+            else :
+                echo 'FALSE';
+            endif;*/
         } else {
             $this->_arrdata = array(
                 'id_usuario' => $session->id,
@@ -270,7 +275,8 @@ class Imovel extends CI_Controller
 
             $this->_return = $this->Model_Imovel->_insert($this->_arrdata);
             if ($this->_return) :
-                echo 'TRUE'; else :
+                echo 'TRUE'; 
+            else :
                 echo 'FALSE';
             endif;
         }
@@ -315,8 +321,8 @@ class Imovel extends CI_Controller
          */
         if (!empty($_FILES['image']['name'])) {
             // Pasta onde o arquivo vai ser salvo
-            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'].'/assets/uploads/';
-            //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'].'/giblivebrasil/assets/uploads/';
+            //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'].'/assets/uploads/';
+            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'].'/giblivebrasil/assets/uploads/';
 
             $filesCount = count(array_filter($_FILES['image']['name']));
             for ($i = 0; $i < $filesCount; ++$i) {

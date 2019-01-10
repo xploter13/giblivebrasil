@@ -9,7 +9,6 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
-
         <!-- ================== BEGIN BASE CSS STYLE ================== -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <link href="assets/plugins/jquery-ui-1.10.4/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
@@ -46,7 +45,7 @@
                 </ol>
                 <!-- end breadcrumb -->
                 <!-- begin page-header -->
-                <h1 class="page-header">Dashboard <small></small></h1>
+                <h1 class="page-header">Dashboard <small></small></h1>                
                 <!-- end page-header -->
                 <!-- begin row -->
                 <div class="row">
@@ -192,15 +191,15 @@
                         <!-- begin panel -->
                         <div class="panel panel-inverse">
                             <div class="panel-heading">
-                                <h4 class="panel-title">Agendamento de Visitas <span class="pull-right label label-success"><i class="fa fa-user"></i></span></h4>
+                                <h4 class="panel-title">Agendamento de Visitas <span class="pull-right label label-success"><i class="fa fa-calendar"></i></span></h4>
                             </div>
                             <div id="schedule-calendar" class="bootstrap-calendar"></div>
                             <div class="list-group">
                                 <a href="#" class="list-group-item text-ellipsis">
-                                    <span class="badge badge-success">9:00 am</span> Primeiro Atendimento
+                                    <span class="badge badge-success">hoje</span> Atendimento
                                 </a> 
                                 <a href="#" class="list-group-item text-ellipsis">
-                                    <span class="badge badge-primary">2:45 pm</span> Último Atendimento
+                                    <span class="badge badge-primary">anterior ou futuro</span> Atendimento
                                 </a>
                             </div>
                         </div>
@@ -340,24 +339,36 @@
                 var n = new Date,
                         r = n.getMonth() + 1,
                         i = n.getFullYear();
-                var s = [["2/" + r + "/" + i,
-                        "Popover Title",
-                        "#",
-                        "#00acac",
-                        "Some contents here"],
-                    ["5/" + r + "/" + i,
-                        "Visita",
-                        "http://google.com.br",
-                        "#2d353c"],
-                    ["18/" + r + "/" + i,
-                        "Popover with HTML Content",
-                        "#",
-                        "#2d353c",
-                        'Some contents here <div class="text-right"><a href="http://www.google.com">view more >>></a></div>'],
-                    ["28/" + r + "/" + i,
-                        "Gib Live Brasil",
-                        "http://www.seantheme.com/color-admin-v1.3",
-                        "#2d353c"]];
+                var s =                     
+                    
+                    [
+                        <?php 
+                            $obj = new ArrayIterator($data_crm);
+                            while ($obj->valid()) :
+                                $dt = explode('/', $obj->current()->data_atendimento);
+                              if ($obj->current()->data_atendimento === date('d/m/Y'))   :
+                            ?>
+                                ["<?php echo $dt[0]; ?>/" + <?php echo $dt[1]; ?> + "/<?php echo $dt[2]; ?>",
+                                    "Visita de hoje",
+                                    "#",
+                                    "#00acac",
+                                    "Cliente <?php echo $obj->current()->cliente; ?>"
+                                ],
+                            <?php 
+                                else :
+                                    ?>                                    
+                                    ["<?php echo $dt[0]; ?>/" + <?php echo $dt[1]; ?> + "/<?php echo $dt[2]; ?>",
+                                    "Lembrete",
+                                    "#",
+                                    "#242A30",
+                                    "Visitar <?php echo $obj->current()->cliente; ?>"
+                                ],
+                                <?php
+                                endif;
+                            $obj->next();
+                            endwhile;
+                        ?>
+                    ];                    
                 var o = $("#schedule-calendar");
                 $(o).calendar({
                     months: e, days: t, events: s, popover_options: {
@@ -437,6 +448,7 @@
              });
              }, 1e3);
              });*/
+             $(".button-dash").addClass('active');
         </script>
     </body>
 </html>

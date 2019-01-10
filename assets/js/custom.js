@@ -5,9 +5,9 @@
  -----------------------------------------*/
 
 //Production
-BASEURL = window.location.origin + '/';
+//BASEURL = window.location.origin + '/';
 //Localhost
-//BASEURL = window.location.origin + '/giblivebrasil/';
+BASEURL = window.location.origin + '/giblivebrasil/';
 
 /**
  * GENERAL
