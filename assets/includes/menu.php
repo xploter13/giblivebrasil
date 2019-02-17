@@ -214,7 +214,7 @@ else :
                     </a>
                 </li>
                 <li class="has-sub">
-                    <a href="javascript:;">
+                    <a href="<?php echo base_url(); ?>locacao">
                         <i class="fa fa-th"></i>
                         <span>Locação</span>
                     </a>
@@ -279,5 +279,3 @@ else :
     <!-- end #sidebar -->
 <?php
 endif;
-
-

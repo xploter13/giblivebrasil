@@ -187,7 +187,7 @@
                 <!-- begin row -->
                 <div class="row">                    
                     <!-- begin col-4 -->
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <!-- begin panel -->
                         <div class="panel panel-inverse">
                             <div class="panel-heading">
@@ -206,9 +206,9 @@
                         <!-- end panel -->
                     </div>
                     <!-- end col-4 -->
-                    <!-- begin col-4 -->
+                    <!-- begin col-4 --
                     <div class="col-md-4">
-                        <!-- begin panel -->
+                        <!-- begin panel --
                         <div class="panel panel-inverse">
                             <div class="panel-heading">
                                 <h4 class="panel-title">Últimos Imóveis <span class="pull-right label label-success"><i class="fa fa-home"></i></span></h4>
@@ -275,7 +275,7 @@
                                 <a href="javascript:;" class="text-inverse">Ver Todos</a>
                             </div>
                         </div>
-                        <!-- end panel -->
+                        <!-- end panel --
                     </div>
                     <!-- end col-4 -->
                 </div>
@@ -343,30 +343,34 @@
                     
                     [
                         <?php 
-                            $obj = new ArrayIterator($data_crm);
-                            while ($obj->valid()) :
-                                $dt = explode('/', $obj->current()->data_atendimento);
-                              if ($obj->current()->data_atendimento === date('d/m/Y'))   :
-                            ?>
-                                ["<?php echo $dt[0]; ?>/" + <?php echo $dt[1]; ?> + "/<?php echo $dt[2]; ?>",
-                                    "Visita de hoje",
-                                    "#",
-                                    "#00acac",
-                                    "Cliente <?php echo $obj->current()->cliente; ?>"
-                                ],
-                            <?php 
-                                else :
-                                    ?>                                    
+                            if (empty($data_crm)) :
+                                //not working
+                            else :
+                                $obj = new ArrayIterator($data_crm);
+                                while ($obj->valid()) :
+                                    $dt = explode('/', $obj->current()->data_atendimento);
+                                if ($obj->current()->data_atendimento === date('d/m/Y'))   :
+                                ?>
                                     ["<?php echo $dt[0]; ?>/" + <?php echo $dt[1]; ?> + "/<?php echo $dt[2]; ?>",
-                                    "Lembrete",
-                                    "#",
-                                    "#242A30",
-                                    "Visitar <?php echo $obj->current()->cliente; ?>"
-                                ],
-                                <?php
-                                endif;
-                            $obj->next();
-                            endwhile;
+                                        "Visita de hoje",
+                                        "#",
+                                        "#00acac",
+                                        "Cliente <?php echo $obj->current()->cliente; ?>"
+                                    ],
+                                <?php 
+                                    else :
+                                        ?>                                    
+                                        ["<?php echo $dt[0]; ?>/" + <?php echo $dt[1]; ?> + "/<?php echo $dt[2]; ?>",
+                                        "Lembrete",
+                                        "#",
+                                        "#348fe2",
+                                        "Visitar <?php echo $obj->current()->cliente; ?>"
+                                    ],
+                                    <?php
+                                    endif;
+                                $obj->next();
+                                endwhile;
+                            endif;
                         ?>
                     ];                    
                 var o = $("#schedule-calendar");

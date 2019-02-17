@@ -173,25 +173,25 @@ class Imovel extends CI_Controller
         if (!empty($_FILES['image']['name'])) {
             // Pasta onde o arquivo vai ser salvo
             //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'].'/assets/uploads/';
-            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/giblivebrasil/assets/uploads/';
+            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'].'/giblivebrasil/assets/uploads/';
             //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/homologacao/novogiblivebrasil/assets/uploads/';
 
             $filesCount = count(array_filter($_FILES['image']['name']));
-            for ($i = 0; $i < $filesCount; ++$i) {
+            for ($i = 0; $i <= $filesCount; ++$i) {
                 // Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
                 // Faz a verificação da extensão do arquivo
                 $extensao = @strtolower(end(explode('.', $_FILES['image']['name'][$i])));
 
-                $nome_final[$i] = md5($_FILES['image']['name'][$i]).'.jpg';
+                $nome_final[$i] = @md5($_FILES['image']['name'][$i]).'.jpg';
 
                 // Depois verifica se é possível mover o arquivo para a pasta escolhida
-                move_uploaded_file($_FILES['image']['tmp_name'][$i], $_UP['pasta'].$nome_final[$i]);
+                @move_uploaded_file($_FILES['image']['tmp_name'][$i], $_UP['pasta'].$nome_final[$i]);
             }
 
             $this->img = implode(';', $nome_final);
 
             /*echo '<pre>';
-            print_r($nome_final[1]);
+            print_r($nome_final);
             echo '</pre>';*/
 
             $this->_arrdata = array(
@@ -226,17 +226,15 @@ class Imovel extends CI_Controller
                 'imo_excluido' => '0',
             );
 
+            /*echo '<pre>';
+            print_r($this->_arrdata);
+            echo '</pre>';*/
 
-            echo "<pre>";
-                print_r($this->_arrdata);
-            echo "</pre>";
-
-            /*$this->_return = $this->Model_Imovel->_insert($this->_arrdata);
+            $this->_return = $this->Model_Imovel->_insert($this->_arrdata);
             if ($this->_return) :
-                echo 'TRUE'; 
-            else :
+                echo 'TRUE'; else :
                 echo 'FALSE';
-            endif;*/
+            endif;
         } else {
             $this->_arrdata = array(
                 'id_usuario' => $session->id,
@@ -275,8 +273,7 @@ class Imovel extends CI_Controller
 
             $this->_return = $this->Model_Imovel->_insert($this->_arrdata);
             if ($this->_return) :
-                echo 'TRUE'; 
-            else :
+                echo 'TRUE'; else :
                 echo 'FALSE';
             endif;
         }
@@ -325,15 +322,13 @@ class Imovel extends CI_Controller
             $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'].'/giblivebrasil/assets/uploads/';
 
             $filesCount = count(array_filter($_FILES['image']['name']));
-            for ($i = 0; $i < $filesCount; ++$i) {
+            for ($i = 0; $i <= $filesCount; ++$i) {
                 // Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
                 // Faz a verificação da extensão do arquivo
                 $extensao = @strtolower(end(explode('.', $_FILES['image']['name'][$i])));
-
-                $nome_final[$i] = md5($_FILES['image']['name'][$i]).'.jpg';
-
+                $nome_final[$i] = @md5($_FILES['image']['name'][$i]).'.jpg';
                 // Depois verifica se é possível mover o arquivo para a pasta escolhida
-                move_uploaded_file($_FILES['image']['tmp_name'][$i], $_UP['pasta'].$nome_final[$i]);
+                @move_uploaded_file($_FILES['image']['tmp_name'][$i], $_UP['pasta'].$nome_final[$i]);
             }
 
             $this->img = implode(';', $nome_final);
