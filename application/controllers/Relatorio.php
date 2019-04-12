@@ -77,9 +77,7 @@ class Relatorio extends CI_Controller {
             $session = $this->session->userdata('session');
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
             $data['data_loc'] = $this->Model_Locacao->_selectAll($session->id);
-
             $this->load->view('relatorio/locacao/view', $data);
         else :
             header('Location: ' . base_url());

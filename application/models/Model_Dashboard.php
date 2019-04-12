@@ -21,11 +21,37 @@ class Model_Dashboard extends CI_Model {
                 INNER JOIN cidade AS T2 INNER JOIN estado AS T3 
                 WHERE T1.id_cidade = T2.id AND T1.id_estado = T3.id AND excluido = 0 AND T1.id_usuario = " . $id_user;
         $this->query = $this->db->query($sql);
-
         if ($this->query->num_rows() > 0) :
             $this->data = $this->query->result();
             return $this->data;
         endif;
     }   
+
+    public function _countImmobile($id_user) {
+        $sql = "SELECT COUNT(id) AS amount, id_usuario  FROM imovel WHERE id_usuario = " . $id_user;
+        $this->query = $this->db->query($sql);
+        if ($this->query->num_rows() > 0) :
+            $this->data = $this->query->result();
+            return $this->data;
+        endif;
+    }
+
+    public function _countCrm($id_user) {
+        $sql = "SELECT COUNT(id) AS amount, id_usuario, status_atendimento  FROM crm WHERE status_atendimento = 'Fechado'". " AND id_usuario = " . $id_user;
+        $this->query = $this->db->query($sql);
+        if ($this->query->num_rows() > 0) :
+            $this->data = $this->query->result();
+            return $this->data;
+        endif;
+    }
+
+    public function _countLocation($id_user) {
+        $sql = "SELECT COUNT(id) AS amount, id_usuario  FROM locacao WHERE id_usuario = " . $id_user;
+        $this->query = $this->db->query($sql);
+        if ($this->query->num_rows() > 0) :
+            $this->data = $this->query->result();
+            return $this->data;
+        endif;
+    }
 
 }

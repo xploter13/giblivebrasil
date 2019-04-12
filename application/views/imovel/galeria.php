@@ -55,7 +55,7 @@
                         <?php
                     else :
                         $g = new ArrayIterator($galery);
-                        while ($g->valid()) :                            
+                        while ($g->valid()) :
                             ?>                    
                             <div class="image gallery-group-1">
                                 <div class="image-inner">

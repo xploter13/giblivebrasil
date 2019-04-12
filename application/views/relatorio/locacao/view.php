@@ -87,20 +87,20 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                </tr>   
+                                                </tr>
                                                 <?php
                                             else :
                                                 $l = new ArrayIterator($data_loc);
                                                 while ($l->valid()):
                                                     ?>
                                                     <tr>
-                                                        <td><?php echo $l->current()->loc_nome; ?></td>
+                                                        <td><?php echo $l->current()->propri_nome; ?></td>
                                                         <td><?php echo $l->current()->loc_renda_mensal; ?></td>
                                                         <td><?php echo $l->current()->loc_tel; ?></td>
                                                         <td><?php echo $l->current()->loc_cel; ?></td>
                                                         <td><?php echo $l->current()->loc_data_ini_contrato; ?></td>
                                                         <td><?php echo $l->current()->loc_data_venc_contrato; ?></td>
-                                                    </tr> 
+                                                    </tr>
                                                     <?php
                                                     $l->next();
                                                 endwhile;

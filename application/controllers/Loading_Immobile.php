@@ -14,7 +14,7 @@ class Loading_Immobile extends CI_Controller {
      * Recebe e retorna os imoveis do locatário
      */
     public function Index() {
-        $this->propri = $this->input->post('id');
+        $this->propri = $this->input->post('cmbLocatario');
         //echo $this->propri;
         $this->immobile = $this->Model_Loading_Imovel->_getImmobile($this->propri);
         if (!empty($this->immobile)) :

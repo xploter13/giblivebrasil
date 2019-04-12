@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--[if IE 8]>
-<html lang="en" class="ie8"> <![endif]-->
+<html lang="pt-br" class="ie8"> <![endif]-->
 <!--[if !IE]><!-->
 <html lang="pt-br">
 <!--<![endif]-->
@@ -11,7 +11,6 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>
-
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
     <!--        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />-->
     <link href="<?php echo base_url(); ?>assets/plugins/jquery-ui-1.10.4/themes/base/minified/jquery-ui.min.css"
@@ -296,8 +295,26 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Cidade <span class="loading-city"></span></label>
-                                            <select class="form-control" id="cmb-city" name="cmbCidade" data-size="10"
-                                                    data-live-search="true" data-style="btn-white" required></select>
+                                            <select class="form-control" id="cmb-city" name="cmbCidade" data-size="10" data-live-search="true" data-style="btn-white" required>
+                                                <option value="" disabled selected>Selecione a Cidade</option>
+                                                <?php
+                                                if (empty($city)) :
+                                                    ?>
+                                                    <option value="" disabled selected>Não existem cidades cadastradas</option>
+                                                <?php
+                                                else :
+                                                    $c = new ArrayIterator($city);
+                                                    while ($c->valid()) :
+                                                        ?>
+                                                        <option value="<?php echo $c->current()->id; ?>">
+                                                            <?php echo $c->current()->descricao; ?>
+                                                        </option>
+                                                        <?php
+                                                        $c->next();
+                                                    endwhile;
+                                                endif;
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -460,14 +477,12 @@
             App.init();
             FormPlugins.init();
             $(".button-imo").addClass('active');
-
             $('#inputDateAtt').datetimepicker({
                 lang: 'pt-BR',
                 timepicker: false,
                 format: 'd/m/Y',
                 formatDate: 'Y/m/d'
             });
-
             $('.input-currency').maskMoney();
         });
     </script>
@@ -482,22 +497,18 @@
         $("#cmb-type-category").val("<?php echo $i->current()->imo_cate; ?>");
         $("#cmb-uf").val("<?php echo $i->current()->id_estado; ?>");
         $("#cmb-type-negotiation").val("<?php echo $i->current()->imo_tipo_neg; ?>");
-
-        function loadSelect() {
-            $("#cmb-city").val("<?php echo $i->current()->id_cidade; ?>");
-        }
-
+        $("#cmb-city").val("<?php echo $i->current()->id_cidade; ?>");
         /* File Input - Drag & Drop */
         $("#file-1").fileinput({
             language: 'pt-BR',
             allowedFileExtensions: ['jpg', 'png', 'gif'],
             initialPreview: [
                 <?php
-                $i = implode(';' . $i->current()->imo_image);
-                $img = new ArrayIterator($i);
-                while ($img->valid()) :
-                    echo "base_url().'assets/uploads/'.$img";
-                endwhile;
+                $arr_img = explode(';' , $i->current()->imo_image);
+                foreach ($arr_img as $item) {
+                    $url_img = base_url("assets/uploads/$item");
+                    echo "'$url_img',";
+                }
                 ?>
             ],
             initialPreviewAsData: true,
@@ -507,7 +518,9 @@
             browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
             maxFileSize: 2000,
             maxFilesNum: 10,
-            showUpload: false
+            showUpload: false,
+            showRemove: true,
+            showPreview: true
         });
     </script>
     <?php

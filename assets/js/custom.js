@@ -445,7 +445,6 @@ $('#frm-func').validator().on('submit', function(e) {
                 swal("", "Erro na operação, consulte o administrador do sistema!", "warning");
             }
         });
-
         // Cancela o submit do form
         e.preventDefault();
     }
@@ -764,7 +763,7 @@ $('#frm-imo-edit').validator().on('submit', function(e) {
                 if (data === 'TRUE') {
                     swal("", "Registros atualizados com sucesso!", "success");
                     setTimeout(function() {
-                        $(location).attr('href', BASEURL + 'recebimento');
+                        $(location).attr('href', BASEURL + 'imovel');
                     }, 3000);
                 } else if (data === 'FALSE') {
                     swal("", "Erro ao atualizar!", "warning");
@@ -1006,7 +1005,6 @@ $('#frm-audi-edit').validator().on('submit', function(e) {
 /**
  * EMITIR CONTRATO
  */
-
 $('#frm-emit-contract').validator().on('submit', function(e) {
     if (e.isDefaultPrevented()) {
         console.log('Validou!!');
@@ -1043,6 +1041,32 @@ $('#frm-emit-contract').validator().on('submit', function(e) {
     }
 });
 
+/***********************************
+ BUSCA IMOVEL
+ **********************************/
+
+$(function() {
+    $("#inputPropri").change(function() {
+        var dados = 'id=' + $("#inputPropri").val();
+        //console.log(dados);
+        $.ajax({
+            type: "POST",
+            url: BASEURL + 'Loading_Imovel',
+            beforeSend: function() {
+                $(".loading-city").fadeIn(function() {
+                    $(this).html("carregando...");
+                });
+            },
+            data: dados,
+            success: function(data) {
+                $(".loading-city").fadeOut('slow');
+                //console.log(data);
+                $("#cmb-city").html(data);
+            }
+        });
+    });
+});
+
 
 /***********************************
  BUSCA CIDADE
@@ -1064,10 +1088,7 @@ $(function() {
             success: function(data) {
                 $(".loading-city").fadeOut('slow');
                 //console.log(data);
-                //$("#cmb-city").html(data);
-                $("#cmb-city").html(data).promise().done(function() {
-                    loadSelect();
-                });
+                $("#cmb-city").html(data);
             }
         });
     });
@@ -1246,10 +1267,6 @@ $('#inputCPF-2').blur(function() {
         $(this).val("");
     }
 });
-
-
-
-
 
 /**
  * FUNCAO DE VALIDACAO
