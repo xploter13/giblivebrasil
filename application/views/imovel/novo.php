@@ -312,11 +312,10 @@
                                                 <label>Observações:</label>
                                                 <textarea rows="5" cols="50" id="txt-obs-finances" name="txtObservacao" class="form-control"></textarea>
                                             </div>
-                                        </div>
-                                        <legend class="gap-30">Marketing</legend>
+                                        </div>                                        
                                         <div class="col-md-12">
-                                            <p>Insira imagens do imóvel em <b>"JPG" ou "PNG"</b> com no máximo 2 MB.</p>
-                                            <div class="gap-30"></div>
+                                            <legend class="gap-30">Imagens</legend>
+                                            <p>Insira imagens do imóvel em <b>"JPG" ou "PNG"</b> com no máximo 2 MB.</p>                                            
                                             <!-- Upload Button -->
                                             <input type="file" name="image[]" class="file file-loading" id="file-1" data-overwrite-initial="false" data-min-file-count="1" multiple>
                                             <br />

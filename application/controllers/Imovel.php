@@ -161,32 +161,49 @@ class Imovel extends CI_Controller
         $this->descExtra = $this->input->post('edtDescricaoTaxa');
         $this->ObsFinanceiro = $this->input->post('txtObservacao');
 
-        /*
-         * UPLOAD IMAGEM
-         */
-        // If file upload form submitted
+        // upload
         if (!empty($_FILES['image']['name'])) {
-            // Pasta onde o arquivo vai ser salvo
-            //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'].'/assets/uploads/';
-            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/giblivebrasil/assets/uploads/';
-            //$_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/homologacao/novogiblivebrasil/assets/uploads/';
-            $filesCount = count(array_filter($_FILES['image']['name']));
-            for ($i = 0; $i <= $filesCount; ++$i) {
-                // Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
-                // Faz a verificação da extensão do arquivo
-                $extensao = @strtolower(end(explode('.', $_FILES['image']['name'][$i])));
-                $nome_final[$i] = @md5($_FILES['image']['name'][$i]) . '.jpg';
-                // Depois verifica se é possível mover o arquivo para a pasta escolhida
-                @move_uploaded_file($_FILES['image']['tmp_name'][$i], $_UP['pasta'] . $nome_final[$i]);
+
+            //Configurações para upload
+            $config['upload_path']="./assets/uploads/";
+            $config['allowed_types']='gif|jpg|png|jpeg';
+            $config['encrypt_name'] = TRUE;
+            $config['max_size'] = '20000';
+
+            /* if ($this->upload->do_multi_upload('image')) {         
+                $data = array('upload_data' => $this->upload->data());
+                $this->img = $data['upload_data']['file_name'];                
+            } */
+
+            $imageCount = count($_FILES['image']['size']); 
+            // die(var_dump($imageCount); 
+            
+            foreach($_FILES as $key=>$value){
+                $uploadImage = array(); 
+                for($i = 0; $i < $imageCount; $i++){ 
+                    $_FILES['image']['name'] = $value['name'][$i]; 
+                    $_FILES['image']['type'] = $value['type'][$i]; 
+                    $_FILES['image']['tmp_name'] = $value['tmp_name'][$i]; 
+                    $_FILES['image']['error'] = $value['error'][$i]; 
+                    $_FILES['image']['size'] = $value['size'][$i];
+                    $this->load->library('upload', $config); 
+                    $this->upload->initialize($config); 
+                    $this->upload->do_upload('image'); 
+                    if (!$this->upload->do_upload()) { 
+                        $this->upload->display_errors();
+                    } else {
+                        $fileData = $this->upload->data();
+                        $uploadImage[$i]['image'] = $fileData['file_name'];
+                    }
+                }
             }
 
-            $this->img = implode(';', $nome_final);
+            echo "<pre>";
+            print_r($uploadImage);
+            echo "</pre>";
 
-            /*echo '<pre>';
-            print_r($nome_final);
-            echo '</pre>';*/
-
-            $this->_arrdata = array(
+            
+            /* $this->_arrdata = array(
                 'id_usuario' => $session->id,
                 'id_proprietario' => $this->proprietario,
                 'imo_desc' => "$this->descricao",
@@ -216,20 +233,16 @@ class Imovel extends CI_Controller
                 'imo_image' => "$this->img",
                 'imo_data_cadastro' => date('d/m/Y'),
                 'imo_excluido' => '0',
-            );
+            ); */
 
-            /*echo '<pre>';
-            print_r($this->_arrdata);
-            echo '</pre>';*/
-
-            $this->_return = $this->Model_Imovel->_insert($this->_arrdata);
+           /*  $this->_return = $this->Model_Imovel->_insert($this->_arrdata);
             if ($this->_return) :
                 echo 'TRUE';
             else :
                 echo 'FALSE';
-            endif;
+            endif; */
         } else {
-            $this->_arrdata = array(
+            /* $this->_arrdata = array(
                 'id_usuario' => $session->id,
                 'id_proprietario' => $this->proprietario,
                 'imo_desc' => "$this->descricao",
@@ -264,12 +277,12 @@ class Imovel extends CI_Controller
                 print_r($this->_arrdata);
             echo "</pre>";*/
 
-            $this->_return = $this->Model_Imovel->_insert($this->_arrdata);
+            /* $this->_return = $this->Model_Imovel->_insert($this->_arrdata);
             if ($this->_return) :
                 echo 'TRUE';
             else :
                 echo 'FALSE';
-            endif;
+            endif; */
         }
     }
 

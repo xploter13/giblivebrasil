@@ -138,7 +138,7 @@
                                     <div class="form-group">
                                         <label for="cmbLoc">Locador</label>
                                         <input type="text" name="edtLocator" value="" class="form-control"
-                                               id="inputLocator" disabled>
+                                               id="inputLocator">
                                     </div>
                                 </div>
                                 <!-- /.dados de locação do imovel -->
