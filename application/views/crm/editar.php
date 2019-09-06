@@ -196,7 +196,25 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Cidade <span class="loading-city"></span></label>
-                                                    <select class="form-control" id="cmb-city" name="cmbCidade" data-size="10" data-live-search="true" data-style="btn-white" required></select>
+                                                    <select class="form-control" id="cmb-city" name="cmbCidade" data-size="10" data-live-search="true" data-style="btn-white" required>
+                                                    <?php
+                                                        if (empty($city)) :
+                                                            ?>
+                                                            <option value="" disabled selected>Não existem cidades cadastradas</option>
+                                                        <?php
+                                                        else :
+                                                            $obj = new ArrayIterator($city);
+                                                            while ($obj->valid()) :
+                                                                ?>
+                                                                <option value="<?php echo $obj->current()->id; ?>">
+                                                                    <?php echo $obj->current()->descricao; ?>
+                                                                </option>
+                                                                <?php
+                                                                $obj->next();
+                                                            endwhile;
+                                                        endif;
+                                                    ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -358,12 +376,10 @@
                 $("#cmbStatusAtt").val("<?php echo $c->current()->status_atendimento; ?>");
                 $("#cmbTypeImmoble").val("<?php echo $c->current()->tipo_imovel; ?>");
                 $("#cmbInt").val("<?php echo $c->current()->interesse; ?>");
-
-                $("#cmb-uf").val("<?php echo $c->current()->id_estado; ?>");
-
-                function loadSelect() {
-                    $("#cmb-city").val("<?php echo $c->current()->id_cidade; ?>");
-                }
+                $(window).ready(function() {
+                    $("#cmb-uf").val("<?php echo $c->current()->id_estado; ?>");
+                $("#cmb-city").val("<?php echo $c->current()->id_cidade; ?>");
+                });                
             </script>
             <?php
             $c->next();

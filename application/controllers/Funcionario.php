@@ -44,18 +44,16 @@ class Funcionario extends CI_Controller {
         if (isset($_SESSION['session'])) :
             //armazena a sessao criada
             $session = $this->session->userdata('session');
-
             //retorna todos os estados
-            $this->load->model('Model_Loading_State');
+            $this->load->model('Model_Loading_State');            
             $this->_state = $this->Model_Loading_State->_getState();
             if ($this->_state) :
                 $data['state'] = $this->_state;
             endif;
-
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
+            
             $this->load->view('funcionario/novo', $data);
         else :
             header('Location: ' . base_url());
@@ -68,24 +66,21 @@ class Funcionario extends CI_Controller {
 
     public function editar($id) {
         if (isset($_SESSION['session'])) :
-
             //armazena a sessao criada
             $session = $this->session->userdata('session');
-
             //retorna todos os estados
             $this->load->model('Model_Loading_State');
             $this->_state = $this->Model_Loading_State->_getState();
             if ($this->_state) :
                 $data['state'] = $this->_state;
             endif;
-
             $this->load->model('Model_Funcionario');
+            $this->load->model('Model_Loading_City');
             $data['data_func'] = $this->Model_Funcionario->_selectById($id);
-
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
+            $data['city'] = $this->Model_Loading_City->_getCityAll();
             $this->load->view('funcionario/editar', $data);
         else :
             header('Location: ' . base_url());
@@ -112,8 +107,6 @@ class Funcionario extends CI_Controller {
         $this->telefone = $this->input->post('edtTelefone');
         $this->celular = $this->input->post('edtCelular');
         $this->email = $this->input->post('edtEmail');
-
-
         $this->_arrdata = array(
             "id_usuario" => $session->id,
             "nome" => $this->nome,
@@ -132,9 +125,7 @@ class Funcionario extends CI_Controller {
             "data_cadastro" => date('d/m/Y'),
             "excluido" => '0'
         );
-
         $this->_return = $this->Model_Funcionario->_insert($this->_arrdata);
-
         if ($this->_return) :
             echo 'TRUE';
         else :
@@ -148,7 +139,6 @@ class Funcionario extends CI_Controller {
 
     public function setEdit() {
         $this->load->model('Model_Funcionario');
-
         $this->id = $this->input->post('edtIdFuncionario');
         $this->nome = $this->input->post('edtNome');
         $this->cpf = $this->input->post('edtCPF');
@@ -163,7 +153,6 @@ class Funcionario extends CI_Controller {
         $this->telefone = $this->input->post('edtTelefone');
         $this->celular = $this->input->post('edtCelular');
         $this->email = $this->input->post('edtEmail');
-
         $this->_arrdata = array(
             "nome" => $this->nome,
             "cpf" => $this->cpf,
@@ -180,9 +169,7 @@ class Funcionario extends CI_Controller {
             "email" => $this->email,
             "data_alteracao" => date('d/m/Y')
         );
-
         $this->_return = $this->Model_Funcionario->_edit($this->id, $this->_arrdata);
-
         if ($this->_return) :
             echo 'TRUE';
         else :
@@ -197,11 +184,9 @@ class Funcionario extends CI_Controller {
     public function setDelete() {
         $this->load->model('Model_Funcionario');
         $this->id = $this->input->post('id');
-
         $this->_arrdata = array(
             "excluido" => '1'
         );
-
         $this->_return = $this->Model_Funcionario->_edit($this->id, $this->_arrdata);
         if ($this->_return) :
             echo "TRUE";

@@ -720,21 +720,20 @@ $('#frm-imo').validator().on('submit', function(e) {
             cache: false,
             processData: false,
             success: function(data) {
-                console.log(data);
-                /* if (data === 'TRUE') {
+                //console.log(data);
+                if (data === 'TRUE') {
                     swal("", "Registros cadastrador com sucesso!", "success");
                     setTimeout(function() {
                         $(location).attr('href', BASEURL + 'imovel');
                     }, 3000);
                 } else if (data === 'FALSE') {
                     swal("", "Erro ao cadastrar!", "warning");
-                } */
+                }
             },
             error: function() {
                 swal("", "Erro na operação, consulte o administrador do sistema!", "warning");
             }
         });
-
         // Cancela o submit do form
         e.preventDefault();
     }
@@ -1134,7 +1133,7 @@ $(function() {
         //console.log(dados);
         $.ajax({
             type: "POST",
-            url: BASEURL + 'Loading_Imovel',
+            url: BASEURL + 'Loading_Immobile',
             beforeSend: function() {
                 $(".loading-immobile").fadeIn(function() {
                     $(this).html("carregando...");

@@ -5,7 +5,7 @@
     <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
-        <title>Gib Live Brasil | Funcionário</title>
+        <title>Gib Live Brasil | Imóvel</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
@@ -39,18 +39,21 @@
             <div id="content" class="content">
                 <!-- begin breadcrumb -->
                 <ol class="breadcrumb pull-right">
-                    <li><a href="<?php echo base_url();?>dashboard">Dashboard</a></li>
-                    <li class="active">Funcionário</li>
+                    <li><a href="<?php echo base_url(); ?>dashboard">Dashboard</a></li>
+                    <li class="active">Imóvel</li>
                 </ol>
                 <!-- end breadcrumb -->
                 <!-- begin page-header -->
-                <h1 class="page-header">Funcionário</h1>
+                <h1 class="page-header">Imóvel</h1>
                 <!-- end page-header -->
 
                 <!-- begin row -->
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="funcionario/novo" class="btn btn-info pull-right">Novo Registro <i class="fa fa-plus"></i></a>
+                        <ul class="list-inline pull-right">
+                            <li><a href="imovel/galeria" class="btn btn-success">Galeria <i class="fa fa-image"></i></a></li>
+                            <li><a href="imovel/novo" class="btn btn-info">Novo Registro <i class="fa fa-plus"></i></a></li>
+                        </ul>
                     </div>       
 
                     <!-- begin col-12 -->
@@ -64,7 +67,7 @@
                                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                                 </div>
-                                <h4 class="panel-title">Funcionários Cadastrados</h4>
+                                <h4 class="panel-title">Imóveis Cadastradas</h4>
                             </div>
 
                             <div class="panel-body">
@@ -72,35 +75,36 @@
                                     <table id="data-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Nome</th>
-                                                <th>CPF</th>
-                                                <th>Data de Nascimento</th>
-                                                <th>Celular</th>
-                                                <th>Telefone</th>
+                                                <th>Proprietario</th>
+                                                <th>Tipo do Imóvel</th>
+                                                <th>Categoria</th>
+                                                <th>Tipo de Negociação</th>
+                                                <th>Valor</th>
                                                 <th>Ação</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if (empty($data_func)) :
+                                            if (empty($data_imo)) :
                                                 //
                                             else :
-                                                $f = new ArrayIterator($data_func);
-                                                while ($f->valid()):
+                                                $i = new ArrayIterator($data_imo);
+                                                while ($i->valid()):
                                                     ?>
                                                     <tr>
-                                                        <td><?php echo $f->current()->nome; ?></td>
-                                                        <td><?php echo $f->current()->cpf; ?></td>
-                                                        <td><?php echo $f->current()->data_nasc; ?></td>
-                                                        <td><?php echo $f->current()->celular; ?></td>
-                                                        <td><?php echo $f->current()->telefone; ?></td>
+                                                        <td><?php echo $i->current()->nome; ?></td>
+                                                        <td><?php echo $i->current()->imo_tipo_imovel; ?></td>
+                                                        <td><?php echo $i->current()->imo_cate; ?></td>
+                                                        <td><?php echo $i->current()->imo_tipo_neg; ?></td>
+                                                        <td><?php echo $i->current()->imo_valor; ?></td>
                                                         <td>
-                                                            <a href="<?php echo base_url(); ?>funcionario/editar/<?php echo $f->current()->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                            <button class="btn btn-sm btn-danger btn-delete-func" data-id="<?php echo $f->current()->id; ?>"><i class="fa fa-trash"></i> Excluir</button>
+                                                            <a href="imovel/editar/<?php echo $i->current()->id_imovel ?>" class="btn btn-sm btn-info"><i class="fa fa-eyes"></i> Detalhes</a>
+                                                            <a href="imovel/editar/<?php echo $i->current()->id_imovel ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Editar</a>
+                                                            <button class="btn btn-sm btn-danger btn-delete-imo" data-id="<?php echo $i->current()->id_imovel; ?>"><i class="fa fa-trash"></i> Excluir</button>
                                                         </td>
                                                     </tr> 
                                                     <?php
-                                                    $f->next();
+                                                    $i->next();
                                                 endwhile;
                                             endif;
                                             ?>
@@ -109,28 +113,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- end panel -->
-
-                        <!-- #modal-message -->
-                        <div class="modal modal-message fade" id="modal-message">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h4 class="modal-title">Exclusão de Funcinário</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p class="msg"></p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Não</a>
-                                        <a href="javascript:;" class="btn btn-sm btn-primary" id="btn-delete-ok">Sim</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
+                        <!-- end panel -->                
                     </div>
                     <!-- end col-12 -->
                 </div>
@@ -138,30 +121,30 @@
         </div>
 
         <!-- ================== BEGIN BASE JS ================== -->
-        <script src="assets/plugins/jquery-1.8.2/jquery-1.8.2.min.js"></script>
-        <script src="assets/plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
-        <script src="assets/plugins/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/jquery-1.8.2/jquery-1.8.2.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-3.2.0/js/bootstrap.min.js"></script>
         <!--[if lt IE 9]>
                 <script src="assets/crossbrowserjs/html5shiv.js"></script>
                 <script src="assets/crossbrowserjs/respond.min.js"></script>
                 <script src="assets/crossbrowserjs/excanvas.min.js"></script>
         <![endif]-->
-        <script src="assets/plugins/sweetalert2/dist/sweetalert2.min.js"></script>
-        <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/jquery-cookie/jquery.cookie.js"></script>
         <!-- ================== END BASE JS ================== -->
 
         <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-        <script src="assets/plugins/DataTables-1.9.4/js/jquery.dataTables.js"></script>
-        <script src="assets/plugins/DataTables-1.9.4/js/data-table.js"></script>
-        <script src="assets/js/apps.min.js"></script>
-        <script src="assets/plugins/bootstrap-validator/validator.min.js"></script>
-        <script src="assets/js/custom.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/dist/sweetalert2.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/DataTables-1.9.4/js/jquery.dataTables.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/DataTables-1.9.4/js/data-table.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/apps.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-validator/validator.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
         <!-- ================== END PAGE LEVEL JS ================== -->
         <script>
             $(document).ready(function () {
                 App.init();
-                $(".button-func").addClass('active');
+                $(".button-imo").addClass('active');
             });
         </script>
     </body>

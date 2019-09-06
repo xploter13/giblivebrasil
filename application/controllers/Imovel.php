@@ -51,7 +51,7 @@ class Imovel extends CI_Controller
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
             $data['data_imo'] = $this->Model_Imovel->_selectAll($session->id);
-            $this->load->view('imovel/view', $data);
+            $this->load->view('imovel/view', $data); 
         else :
             header('Location: ' . base_url());
         endif;
@@ -65,14 +65,11 @@ class Imovel extends CI_Controller
         if (isset($_SESSION['session'])) :
             //armazena a sessao criada
             $session = $this->session->userdata('session');
-
             //retorna todos os proprietarios
             $data['galery'] = $this->Model_Imovel->_selectGalery($session->id);
-
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
             $this->load->view('imovel/galeria', $data);
         else :
             header('Location: ' . base_url());
@@ -88,18 +85,17 @@ class Imovel extends CI_Controller
         if (isset($_SESSION['session'])) :
             //armazena a sessao criada
             $session = $this->session->userdata('session');
-            //retorna todos os estados
-            $this->_state = $this->Model_Loading_State->_getState();
-            if ($this->_state) :
+        //retorna todos os estados
+        $this->_state = $this->Model_Loading_State->_getState();
+        if ($this->_state) :
                 $data['state'] = $this->_state;
-            endif;
-            //retorna todos os proprietarios
-            $data['propri'] = $this->Model_Proprietario->_selectAll($session->id);
-            //Atribui o nome armazenado na sessao
-            $data['name'] = $session->nome;
-            $data['level'] = $session->nivel;
-            $this->load->view('imovel/novo', $data);
-        else :
+        endif;
+        //retorna todos os proprietarios
+        $data['propri'] = $this->Model_Proprietario->_selectAll($session->id);
+        //Atribui o nome armazenado na sessao
+        $data['name'] = $session->nome;
+        $data['level'] = $session->nivel;
+        $this->load->view('imovel/novo', $data); else :
             header('Location: ' . base_url());
         endif;
     }
@@ -109,21 +105,20 @@ class Imovel extends CI_Controller
         if (isset($_SESSION['session'])) :
             //armazena a sessao criada
             $session = $this->session->userdata('session');
-            //retorna todos os estados
-            $this->_state = $this->Model_Loading_State->_getState();
-            if ($this->_state) :
+        //retorna todos os estados
+        $this->_state = $this->Model_Loading_State->_getState();
+        if ($this->_state) :
                 $data['state'] = $this->_state;
-            endif;
-            $data['data_imo'] = $this->Model_Imovel->_selectById($id);
-            //retorna todos os proprietarios
-            $data['propri'] = $this->Model_Proprietario->_selectAll($session->id);
-            //Atribui o nome armazenado na sessao
-            $data['name'] = $session->nome;
-            $data['level'] = $session->nivel;
-            //echo $this->state;
-            $data['city'] = $this->Model_Loading_City->_getCityAll();
-            $this->load->view('imovel/editar', $data);
-        else :
+        endif;
+        $data['data_imo'] = $this->Model_Imovel->_selectById($id);
+        //retorna todos os proprietarios
+        $data['propri'] = $this->Model_Proprietario->_selectAll($session->id);
+        //Atribui o nome armazenado na sessao
+        $data['name'] = $session->nome;
+        $data['level'] = $session->nivel;
+        //echo $this->state;
+        $data['city'] = $this->Model_Loading_City->_getCityAll();
+        $this->load->view('imovel/editar', $data); else :
             header('Location: ' . base_url());
         endif;
     }
@@ -163,47 +158,24 @@ class Imovel extends CI_Controller
 
         // upload
         if (!empty($_FILES['image']['name'])) {
-
-            //Configurações para upload
-            $config['upload_path']="./assets/uploads/";
-            $config['allowed_types']='gif|jpg|png|jpeg';
-            $config['encrypt_name'] = TRUE;
-            $config['max_size'] = '20000';
-
-            /* if ($this->upload->do_multi_upload('image')) {         
-                $data = array('upload_data' => $this->upload->data());
-                $this->img = $data['upload_data']['file_name'];                
-            } */
-
-            $imageCount = count($_FILES['image']['size']); 
-            // die(var_dump($imageCount); 
-            
-            foreach($_FILES as $key=>$value){
-                $uploadImage = array(); 
-                for($i = 0; $i < $imageCount; $i++){ 
-                    $_FILES['image']['name'] = $value['name'][$i]; 
-                    $_FILES['image']['type'] = $value['type'][$i]; 
-                    $_FILES['image']['tmp_name'] = $value['tmp_name'][$i]; 
-                    $_FILES['image']['error'] = $value['error'][$i]; 
-                    $_FILES['image']['size'] = $value['size'][$i];
-                    $this->load->library('upload', $config); 
-                    $this->upload->initialize($config); 
-                    $this->upload->do_upload('image'); 
-                    if (!$this->upload->do_upload()) { 
-                        $this->upload->display_errors();
-                    } else {
-                        $fileData = $this->upload->data();
-                        $uploadImage[$i]['image'] = $fileData['file_name'];
-                    }
-                }
+            $_UP['pasta'] = $_SERVER['DOCUMENT_ROOT'] . '/giblivebrasil/assets/uploads/';
+            $filesCount = count(array_filter($_FILES['image']['name']));
+            /* echo "<pre>";
+            print_r($filesCount);
+            echo "</pre>"; */
+            for ($i = 0; $i <= $filesCount; ++$i) {
+                // Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
+                // Faz a verificação da extensão do arquivo
+                $extensao = @strtolower(end(explode('.', $_FILES['image']['name'][$i])));
+                $nome_final[$i] = @md5($_FILES['image']['name'][$i]) . '.jpg';
+                // Depois verifica se é possível mover o arquivo para a pasta escolhida
+                @move_uploaded_file($_FILES['image']['tmp_name'][$i], $_UP['pasta'] . $nome_final[$i]);
             }
-
-            echo "<pre>";
-            print_r($uploadImage);
-            echo "</pre>";
-
-            
-            /* $this->_arrdata = array(
+            $this->img = implode(';', $nome_final);
+            /* echo "<pre>";
+            print_r($this->img);
+            echo "</pre>";    */            
+            $this->_arrdata = array(
                 'id_usuario' => $session->id,
                 'id_proprietario' => $this->proprietario,
                 'imo_desc' => "$this->descricao",
@@ -233,14 +205,13 @@ class Imovel extends CI_Controller
                 'imo_image' => "$this->img",
                 'imo_data_cadastro' => date('d/m/Y'),
                 'imo_excluido' => '0',
-            ); */
+            );
 
-           /*  $this->_return = $this->Model_Imovel->_insert($this->_arrdata);
+            $this->_return = $this->Model_Imovel->_insert($this->_arrdata);
             if ($this->_return) :
-                echo 'TRUE';
-            else :
+                echo 'TRUE'; else :
                 echo 'FALSE';
-            endif; */
+            endif;
         } else {
             /* $this->_arrdata = array(
                 'id_usuario' => $session->id,
@@ -376,8 +347,7 @@ class Imovel extends CI_Controller
 
             $this->_return = $this->Model_Imovel->_edit($this->id, $this->_arrdata);
             if ($this->_return) :
-                echo 'TRUE';
-            else :
+                echo 'TRUE'; else :
                 echo 'FALSE';
             endif;
         } else {
@@ -416,8 +386,7 @@ class Imovel extends CI_Controller
 
             $this->_return = $this->Model_Imovel->_edit($this->id, $this->_arrdata);
             if ($this->_return) :
-                echo 'TRUE';
-            else :
+                echo 'TRUE'; else :
                 echo 'FALSE';
             endif;
         }
@@ -435,8 +404,7 @@ class Imovel extends CI_Controller
         );
         $this->_return = $this->Model_Imovel->_edit($this->id, $this->_arrdata);
         if ($this->_return) :
-            echo 'TRUE';
-        else :
+            echo 'TRUE'; else :
             echo 'FALSE';
         endif;
     }

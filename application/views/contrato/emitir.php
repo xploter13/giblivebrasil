@@ -107,9 +107,9 @@
                                 <!-- dados de Emissão de Contrato -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="cmbLoc">Locatário (Proprietário)</label>
+                                        <label for="cmbLoc">Locador (Proprietário)</label>
                                         <select name="cmbLocatario" class="form-control" id="cmbLoc" required>
-                                            <option value="" disabled selected>Selecione o locatário</option>
+                                            <option value="" disabled selected>Selecione o locador</option>
                                             <?php
                                             if (empty($propri)) :
                                                 ?>
@@ -130,15 +130,48 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="cmbImo">Imóvel</label>
-                                        <select name="cmbImovel" class="form-control" id="cmbImo" required></select>
+                                        <label for="cmbImo">Imóvel <span class="loading-immobile"></span></label>
+                                        <select name="cmbImovel" class="form-control" id="cmb-immobile" required>
+                                        <option value="" disabled selected>Selecione o Imóvel</option>
+                                            <?php
+                                            if (empty($imo)) :
+                                                ?>
+                                                <option value="">Registros não encontrados</option>
+                                            <?php
+                                            else :
+                                                $l = new ArrayIterator($imo);
+                                                while ($l->valid()) :
+                                                    ?>
+                                                    <option value="<?php echo $l->current()->id; ?>"><?php echo $l->current()->imo_cod . ' - '. $l->current()->imo_tipo_imovel; ?></option>
+                                                    <?php
+                                                    $l->next();
+                                                endwhile;
+                                            endif;
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="cmbLoc">Locador</label>
-                                        <input type="text" name="edtLocator" value="" class="form-control"
-                                               id="inputLocator">
+                                        <label for="cmbLoc">Locatário</label>
+                                        <select name="cmbLocator" class="form-control" id="" required>
+                                        <option value="" disabled selected>Selecione o locador</option>
+                                            <?php
+                                            if (empty($locator)) :
+                                                ?>
+                                                <option value="">Registros não encontrados</option>
+                                            <?php
+                                            else :
+                                                $l = new ArrayIterator($locator);
+                                                while ($l->valid()) :
+                                                    ?>
+                                                    <option value="<?php echo $l->current()->id; ?>"><?php echo $l->current()->cli_nome; ?></option>
+                                                    <?php
+                                                    $l->next();
+                                                endwhile;
+                                            endif;
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- /.dados de locação do imovel -->

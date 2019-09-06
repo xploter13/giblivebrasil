@@ -77,18 +77,18 @@ class Contrato extends CI_Controller {
     public function generateContract() {
         if (isset($_SESSION['session'])) :
             $this->load->model('Model_Contrato');
-            $this->imovel = $this->input->post('cmbImovel');
-            $this->locador = $this->input->post('cmbLocador');
-            $this->locatario = $this->input->post('cmbLocatario');
+            $imovel = $this->input->post('cmbImovel');
+            $locador = $this->input->post('cmbLocador');
+            $locatario = $this->input->post('cmbLocatario');
 
-            $this->_result = $this->Model_Contrato->_generate($this->locatario, $this->locador);
-
-            $arrLoc = new ArrayIterator($this->_result);
-            while ($arrLoc->valid()) :
+            //$this->_result = $this->Model_Contrato->_generate($this->locatario, $this->locador);
+            
+           /*  $arrLoc = new ArrayIterator($this->_result);
+            while ($arrLoc->valid()) : */
                         $this->_html = '<p style="text-align: center;"><strong>Marcelo Bonifácio &ndash; Corretor de Im&oacute;veis&nbsp;</strong><strong>CRECI 65656 \ RJ&nbsp;</strong><strong>Tel.: 98835-2689 \ 99301-5954</strong></p>
                     <h2 id="mcetoc_1ba09lrtg1" style="text-align: center;"><strong><span style="color: #000000;">CONTRATO DE LOCA&Ccedil;&Atilde;O COMERCIAL</span></strong></h2>
-                    <p><strong><u>LOCADOR:</u></strong> &nbsp;<strong><u style="text-transform: uppercase;">' . $arrLoc->current()->cli_nome . '</u></strong>, brasileiro, casado, empres&aacute;rio, portador da carteira de identidade n&ordm; 04280134-0 IFP/RJ, inscrito no CPF/MF sob o n&ordm; 470.473.307-63 e sua esposa <strong><u>[NOME]</u></strong>, brasileira, casada, comerciante, portadora da carteira de identidade n&ordm;04379959-7 IFP/RJ, inscrita no CPF/MF sob o n&ordm; 014.346.147-68, AMBOS RESIDENTES &Agrave; Rua: Cristiano Otoni, n&ordm;490, Centro, Barra do Pira&iacute;.&nbsp;&nbsp;</p>
-                    <p><strong><u>LOCAT&Aacute;RIO:</u></strong> &nbsp;<strong><u style="text-transform: uppercase;">'. $arrLoc->current()->nome .'</u></strong>, brasileiro, casado, T&eacute;cnico em Contabilidade, residente e domiciliado sito &aacute; Travessa Ernestina Braga, 67, FD, Bairro Carv&atilde;o, Barra do Pira&iacute; &ndash; RJ, portador da Carteira de Identidade n&uacute;mero 066806951 IFP &ndash; RJ, CRC &ndash; RJ 110993/O7, CPF n&uacute;mero 919.092.287-53.</p>
+                    <p><strong><u>LOCADOR:</u></strong> &nbsp;<strong><u style="text-transform: uppercase;">' . $locador . '</u></strong>, brasileiro, casado, empres&aacute;rio, portador da carteira de identidade n&ordm; 04280134-0 IFP/RJ, inscrito no CPF/MF sob o n&ordm; 470.473.307-63 e sua esposa <strong><u>[NOME]</u></strong>, brasileira, casada, comerciante, portadora da carteira de identidade n&ordm;04379959-7 IFP/RJ, inscrita no CPF/MF sob o n&ordm; 014.346.147-68, AMBOS RESIDENTES &Agrave; Rua: Cristiano Otoni, n&ordm;490, Centro, Barra do Pira&iacute;.&nbsp;&nbsp;</p>
+                    <p><strong><u>LOCAT&Aacute;RIO:</u></strong> &nbsp;<strong><u style="text-transform: uppercase;">'. $locatario .'</u></strong>, brasileiro, casado, T&eacute;cnico em Contabilidade, residente e domiciliado sito &aacute; Travessa Ernestina Braga, 67, FD, Bairro Carv&atilde;o, Barra do Pira&iacute; &ndash; RJ, portador da Carteira de Identidade n&uacute;mero 066806951 IFP &ndash; RJ, CRC &ndash; RJ 110993/O7, CPF n&uacute;mero 919.092.287-53.</p>
                     <p><u></u><strong><u>CL&Aacute;USULA 1</u></strong> - O Locador coloca a disposi&ccedil;&atilde;o do locat&aacute;rio o im&oacute;vel comercial (sala) edificado a Rua Moraes Barbosa, n&uacute;mero 60, sala 202, Centro &ndash; Barra do Pira&iacute; &ndash; RJ. Agregado a um banheiro j&aacute; com Pia e vaso sanit&aacute;rio.</p>
                     <p><strong><u>CL&Aacute;USULA 2</u></strong> - Em contra-presta&ccedil;&atilde;o o locat&aacute;rio se compromete a pagar pelo pre&ccedil;o de R$ 1.400,00 (Hum mil e quatrocentos Reais), sem impostos at&eacute; o &nbsp;dia 05 (Cinco) de cada m&ecirc;s e, na falta da pontualidade ser&aacute; acrescido de 10% (dez por cento) de multa, ap&oacute;s 5(Cinco) dias do vencimento e 0,33 ao dia de juros.</p>
                     <p><strong><u>Par&aacute;grafo Primeiro&ndash;</u></strong> O locador coloca a disposi&ccedil;&atilde;o do locat&aacute;rio um <strong><u>desconto de 50% </u></strong>do valor total da contrapresta&ccedil;&atilde;o caso o pagamento ocorra at&eacute; o dia 05 (Cinco) de cada m&ecirc;s.</p>
@@ -119,7 +119,7 @@ class Contrato extends CI_Controller {
                     <p>&nbsp;</p>
                     <p>_________________________ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;___________________________</p>
                     <p><strong>LOCADOR</strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<strong>LOCAT&Aacute;RIO</strong></p>
-                    <p style="text-transform: uppercase;"><strong>'.$arrLoc->current()->cli_nome.'</strong><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong><strong>'.$arrLoc->current()->nome.'</strong></p>
+                    <p style="text-transform: uppercase;"><strong>'.$locador.'</strong><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong><strong>'.$locatario.'</strong></p>
                     <p>&nbsp;</p>
                     <p><strong>&nbsp;</strong></p>
                     <p><strong>TESTEMUNHAS</strong></p>
@@ -129,8 +129,8 @@ class Contrato extends CI_Controller {
                     <p>&nbsp;_______________________________</p>
                     <p>ALECSANDRA RODRIGUES DA SILVA</p>
                     <p>CPF 051.641.887-40</p>';
-                $arrLoc->next();
-            endwhile;
+                /* $arrLoc->next();
+            endwhile; */
 
             if (!empty($this->_html)) :
                 echo $this->_html;

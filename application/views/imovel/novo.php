@@ -405,11 +405,11 @@
                 overwriteInitial: false,
                 maxFileSize: 2000,
                 maxFilesNum: 10,
-                showUpload: false,
+                showUpload: false
                 //allowedFileTypes: ['image', 'video', 'flash'],
-                slugCallback: function (filename) {
+                /* slugCallback: function (filename) {
                     return filename.replace('(', '_').replace(']', '_');
-                }
+                } */
             });
         </script>
     </body>

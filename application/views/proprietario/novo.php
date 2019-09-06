@@ -199,7 +199,10 @@
                                             <input type="text" class="form-control" name="edtEmail" maxlength="200" id="inputEmail" />
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
                                     <legend class="gap-30">Dados do Conjuge</legend>
+                                    </div>
+                                    
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="inputNomeConj">Nome</label>

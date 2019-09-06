@@ -153,7 +153,7 @@
             <!-- end row -->
             <!-- begin row -->
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="widget-chart with-sidebar bg-black">
                         <div class="widget-chart-content">
                             <h4 class="chart-title">
@@ -177,6 +177,7 @@
                         </div>
                     </div>
                 </div>
+                <!--
                 <div class="col-md-4">
                     <div class="panel panel-inverse">
                         <div class="panel-heading">
@@ -231,7 +232,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
             <!-- end row -->
             <!-- begin row -->

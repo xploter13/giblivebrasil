@@ -87,7 +87,8 @@ if ($level === '1') :
                         <span>Financeiro</span>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="<?php echo base_url(); ?>recebimento">Recebimento</a></li>
+                        <li><a href="<?php echo base_url(); ?>recebimento">Recebimento Direto</a></li>
+                        <li><a href="<?php echo base_url(); ?>carne">Gerar Carnê</a></li>
                     </ul>
                 </li>
                 <li class="has-sub button-docs">
@@ -98,7 +99,7 @@ if ($level === '1') :
                     </a>
                     <ul class="sub-menu">
                         <li><a href="<?php echo base_url(); ?>contrato/emitir">Contrato <i class="fa fa-file-text text-theme m-l-5"></i></a></li>
-                        <li><a href="#">Modelos <i class="fa fa-file-word-o text-theme m-l-5"></i></a></li>
+                        <!-- <li><a href="#">Modelos <i class="fa fa-file-word-o text-theme m-l-5"></i></a></li> -->
                     </ul>
                 </li>
                 <li class="has-sub button-rel">

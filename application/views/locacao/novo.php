@@ -390,7 +390,7 @@
                                                 <input type="text" class="form-control" name="edtCelularFiador" maxlength="20" id="inputMobile-2" />
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="inputEmail">Email</label>
                                                 <input type="text" class="form-control" name="edtEmailFiador" maxlength="200" id="inputEmail" />
@@ -429,7 +429,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="cmbImo">Imóvel
-                                                <span class="loading-"></span>
+                                                <span class="loading-immobile"></span>
                                             </label>                                            
                                             <select name="cmbImovel" class="form-control" id="cmb-immobile"></select>
                                         </div>

@@ -71,6 +71,7 @@ class Cliente extends CI_Controller {
 
             //retorna todos os estados
             $this->load->model('Model_Loading_State');
+            $this->load->model('Model_Loading_City');
             $this->_state = $this->Model_Loading_State->_getState();
             if ($this->_state) :
                 $data['state'] = $this->_state;
@@ -82,7 +83,7 @@ class Cliente extends CI_Controller {
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
+            $data['city'] = $this->Model_Loading_City->_getCityAll();
             $this->load->view('cliente/editar', $data);
         else :
             header('Location: ' . base_url());

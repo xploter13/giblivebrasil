@@ -67,24 +67,21 @@ class Proprietario extends CI_Controller {
 
     public function editar($id) {
         if (isset($_SESSION['session'])) :
-
             //armazena a sessao criada
             $session = $this->session->userdata('session');
-
             //retorna todos os estados
             $this->load->model('Model_Loading_State');
+            $this->load->model('Model_Loading_City');
             $this->_state = $this->Model_Loading_State->_getState();
             if ($this->_state) :
                 $data['state'] = $this->_state;
             endif;
-
             $this->load->model('Model_Proprietario');
             $data['data_propri'] = $this->Model_Proprietario->_selectById($id);
-
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
+            $data['city'] = $this->Model_Loading_City->_getCityAll();
             $this->load->view('proprietario/editar', $data);
         else :
             header('Location: ' . base_url());

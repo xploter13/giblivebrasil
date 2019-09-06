@@ -115,7 +115,6 @@
                                                     <input type="text" class="form-control" name="edtNumero" maxlength="10" id="inputNumberAddress" value="<?php echo $f->current()->numero; ?>" />
                                                 </div>
                                             </div>
-
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Estado</label>
@@ -142,7 +141,26 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Cidade <span class="loading-city"></span></label>
-                                                    <select class="form-control" id="cmb-city" name="cmbCidade" data-size="10" data-live-search="true" data-style="btn-white" required></select>
+                                                    <select class="form-control" id="cmb-city" name="cmbCidade" data-size="10" data-live-search="true" data-style="btn-white" required>
+                                                    <?php
+                                                        if (empty($city)) :
+                                                    ?>
+                                                        <option value="" disabled selected>Não existem cidades cadastradas
+                                                        </option>
+                                                        <?php
+                                                                else :
+                                                                    $obj = new ArrayIterator($city);
+                                                                    while ($obj->valid()) :
+                                                                        ?>
+                                                        <option value="<?php echo $obj->current()->id; ?>">
+                                                            <?php echo $obj->current()->descricao; ?>
+                                                        </option>
+                                                        <?php
+                                                                $obj->next();
+                                                            endwhile;
+                                                        endif;
+                                                    ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -227,7 +245,6 @@
                     App.init();
                     FormPlugins.init();
                     $(".button-func").addClass('active');
-                    $("#cmb-uf").val("<?php echo $f->current()->id_estado; ?>");
                     $("#inputDate").datepicker({
                         todayHighlight: true,
                         autoclose: true,
@@ -238,9 +255,8 @@
             <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-validator/validator.min.js"></script>
             <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
             <script>
-                function loadSelect() {
-                    $("#cmb-city").val("<?php echo $f->current()->id_cidade; ?>");
-                }
+                $("#cmb-uf").val("<?php echo $p->current()->id_estado; ?>");
+                $("#cmb-city").val("<?php echo $p->current()->id_cidade; ?>");
             </script>
             <?php
             $f->next();

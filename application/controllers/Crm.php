@@ -75,25 +75,23 @@ class Crm extends CI_Controller
     public function editar($id)
     {
         if (isset($_SESSION['session'])) :
-
-            //armazena a sessao criada
-            $session = $this->session->userdata('session');
-
+        //armazena a sessao criada
+        $session = $this->session->userdata('session');
         //retorna todos os estados
         $this->load->model('Model_Loading_State');
-        $this->_state = $this->Model_Loading_State->_getState();
+        $this->load->model('Model_Loading_City');
+        $this->_state = $this->Model_Loading_State->_getState();        
         if ($this->_state) :
                 $data['state'] = $this->_state;
         endif;
-
         $this->load->model('Model_Crm');
-        $data['data_crm'] = $this->Model_Crm->_selectById($id);
-
+        $data['data_crm'] = $this->Model_Crm->_selectById($id);        
         //Atribui o nome armazenado na sessao
         $data['name'] = $session->nome;
         $data['level'] = $session->nivel;
-
-        $this->load->view('crm/editar', $data); else :
+        $data['city'] = $this->Model_Loading_City->_getCityAll();
+        $this->load->view('crm/editar', $data);
+        else :
             header('Location: '.base_url());
         endif;
     }

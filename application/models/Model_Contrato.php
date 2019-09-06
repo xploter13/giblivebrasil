@@ -86,7 +86,7 @@ class Model_Contrato extends CI_Model {
     **********************************/
     public function _generate($id_locator, $id_client) {
         $sql = "SELECT T1.id AS id_locacao, T1.id_cliente, T1.id_proprietario, T2.id AS id_cli, T2.cli_nome, T2.cli_cpf, T3.id AS id_propri, T3.nome FROM locacao AS T1
-                INNER JOIN cliente AS T2 INNER JOIN proprietario AS T3 WHERE T1.id_cliente = {$id_client} AND T2.id =  {$id_client} AND T3.id = " . $id_locator;
+                INNER JOIN cliente AS T2 INNER JOIN proprietario AS T3 WHERE T1.id_cliente = $id_client AND T2.id =  $id_client AND T3.id = $id_locator";
         $this->query = $this->db->query($sql);
         if ($this->query->num_rows() > 0) :
             $this->data = $this->query->result();
