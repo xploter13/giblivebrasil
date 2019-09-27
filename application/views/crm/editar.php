@@ -146,7 +146,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="txtObs">Observações</label>
-                                                    <textarea rows="8" name="txtObs" class="form-control" value="<?php echo $c->current()->observacao; ?>" id="txtObs"></textarea>
+                                                    <textarea rows="8" name="txtObs" class="form-control" id="txtObs"><?php echo $c->current()->observacao; ?></textarea>
                                                 </div>
                                             </div>
 

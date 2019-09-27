@@ -184,7 +184,7 @@ class Locacao extends CI_Controller {
     public function setInsert() {
         $session = $this->session->userdata('session');
 
-        $this->load->library('convert_coin');
+        $this->load->library('convert_money');
 
         $this->load->model('Model_Locacao');
 

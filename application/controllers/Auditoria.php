@@ -167,7 +167,6 @@ class Auditoria extends CI_Controller {
         $this->janelaAreaServico = $this->input->post('cmbJanelaAreaServico');
         $this->obsAreaServico = $this->input->post('cmbObsAreaServico');
 
-
         $this->_arrdata = array(
             "id_usuario" => $session->id,
             "id_imovel" => "$this->imovel",
@@ -210,11 +209,11 @@ class Auditoria extends CI_Controller {
             "audi_data_cadastro" => date('d/m/Y')
         );
 
-//        echo "<pre>";
-//        print_r($this->_arrdata);
-//        echo "</pre>";
+       /* echo "<pre>";
+     print_r($this->_arrdata);
+      echo "</pre>";  */
 
-        $this->_return = $this->Model_Auditoria->_insert($this->_arrdata);
+       $this->_return = $this->Model_Auditoria->_insert($this->_arrdata);
 
         if ($this->_return) :
             echo 'TRUE';

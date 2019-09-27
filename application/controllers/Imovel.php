@@ -94,8 +94,14 @@ class Imovel extends CI_Controller
         $data['propri'] = $this->Model_Proprietario->_selectAll($session->id);
         //Atribui o nome armazenado na sessao
         $data['name'] = $session->nome;
-        $data['level'] = $session->nivel;
-        $this->load->view('imovel/novo', $data); else :
+        $data['level'] = $session->nivel;        
+        $obj = new ArrayIterator($this->Model_Imovel->_countData());
+        while($obj->valid()) {
+            $data['num_register'] = $obj->current()->num_qtd + 1; 
+            $obj->next();
+        }        
+        $this->load->view('imovel/novo', $data); 
+        else :
             header('Location: ' . base_url());
         endif;
     }

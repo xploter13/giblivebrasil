@@ -70,7 +70,7 @@
                                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                                 </div>
-                                <h4 class="panel-title">Cadastro de Imóvel</h4>
+                                <h4 class="panel-title">Cadastro de Imóvel</h4>                                
                             </div>
                             <div class="panel-body">
                                 <div class="msg"></div>
@@ -108,8 +108,8 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>Código do Imóvel:</label>
-                                                <input type="text" class="form-control" name="edtCodImovel" maxlength="20" required placeholder="CA0001">
+                                                <label>Código do Imóvel <small>Opcional</small>:</label>
+                                                <input type="text" class="form-control" name="edtCodImovel" maxlength="20" required value="IMO-<?php echo $num_register; ?>">
                                             </div>                                            
                                         </div>
                                         <div class="col-sm-6">

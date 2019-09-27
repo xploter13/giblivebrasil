@@ -85,18 +85,7 @@
                                         <tbody>
                                             <?php
                                             if (empty($data_audi)) :
-                                                ?>
-                                                <tr>
-                                                    <td>Não existem dados cadastrados</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>   
-                                                <?php
+                                                //                                                
                                             else :
                                                 $a = new ArrayIterator($data_audi);
                                                 while ($a->valid()):
@@ -111,7 +100,7 @@
                                                         <td><?php echo $a->current()->audi_porta_qto_sla; ?></td>
                                                         <td>
                                                             <a href="auditoria/editar/<?php echo $a->current()->id ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                            <button class="btn btn-sm btn-danger btn-delete-crm" data-id="<?php echo $a->current()->id; ?>"><i class="fa fa-trash"></i> Excluir</button>
+                                                            <button class="btn btn-sm btn-danger btn-delete-auditoria" data-id="<?php echo $a->current()->id; ?>"><i class="fa fa-trash"></i> Excluir</button>
                                                         </td>
                                                     </tr> 
                                                     <?php

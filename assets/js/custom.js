@@ -932,11 +932,7 @@ $('#frm-audi').validator().on('submit', function(e) {
     if (e.isDefaultPrevented()) {
         console.log('Validou!!');
     } else {
-        var dados = $("#frm-audi").serialize();
-        //console.log(dados);
-        $("#modal-message").modal({
-            backdrop: 'static'
-        });
+        var dados = $("#frm-audi").serialize();        
         $.ajax({
             url: BASEURL + 'auditoria/setInsert',
             type: "POST",
@@ -971,10 +967,6 @@ $('#frm-audi-edit').validator().on('submit', function(e) {
         console.log('Validou!!');
     } else {
         var dados = $("#frm-audi-edit").serialize();
-        //console.log(dados);
-        $("#modal-message").modal({
-            backdrop: 'static'
-        });
         $.ajax({
             url: BASEURL + 'auditoria/setEdit',
             type: "POST",
@@ -998,6 +990,44 @@ $('#frm-audi-edit').validator().on('submit', function(e) {
         // Cancela o submit do form
         e.preventDefault();
     }
+});
+
+/**
+ * AUDITORIA - DELETE 
+ */
+$(".btn-delete-auditoria").on('click', function() {
+    var dados = 'id=' + $(this).attr("data-id");
+    //console.log(dados);
+    swal({
+        title: 'Atenção',
+        text: "Deseja realmente excluir este registro?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não'
+    }).then(function() {
+        $.ajax({
+            type: 'POST',
+            url: BASEURL + 'auditoria/setDelete',
+            data: dados,
+            success: function(data) {
+                //console.log(data);
+                if (data === 'TRUE') {
+                    swal('Excluido!', 'Registro excluído com sucesso.', 'success');
+                    setTimeout(function() {
+                        $(location).attr('href', '');
+                    }, 2000);
+                } else if (data === 'FALSE') {
+                    swal('', 'Erro ao excluir registro!', 'warning');
+                }
+            },
+            error: function() {
+                swal("", "Erro na operação, consulte o administrador do sistema!", "warning");
+            }
+        });
+    });
 });
 
 

@@ -29,10 +29,10 @@ $db['localhost'] = array(
 
 $db['production'] = array(
     'dsn' => '',
-    'hostname' => '198.58.125.231',
-    'username' => 'giblivebrasil',
-    'password' => 'tf3yGdw^',
-    'database' => 'giblivebrasil',
+    'hostname' => '216.172.172.80',
+    'username' => 'gibliv97_root',
+    'password' => 'a1b2c309',
+    'database' => 'gibliv97_system',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => false,

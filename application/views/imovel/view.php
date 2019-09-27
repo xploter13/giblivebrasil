@@ -50,15 +50,18 @@
                 <!-- end page-header -->
 
                 <div id="gallery" class="gallery">
+                    <div class="col-md-12">
+                        <a href="<?php echo base_url(); ?>imovel/novo" class="btn btn-sm btn-primary pull-right"><i class="fa fa-register"></i> Cadastrar Imóvel</a>
+                     </div> 
                     <?php
                     if (empty($data_imo)) :
                         ?>
-                        <p>A galeria não possui imagens.</p>
+                        <a href="http://"class="btn btn-primary">Cadastrar Imóvel</a>
                         <?php
                     else :
                         $g = new ArrayIterator($data_imo);
                         while ($g->valid()) :
-                            ?>                    
+                            ?>                                              
                             <div class="image gallery-group-1">
                                 <div class="image-inner">
                                     <a href="<?php echo base_url() . 'assets/uploads/' . $g->current()->imo_image; ?>" data-lightbox="gallery-group-1">
@@ -79,9 +82,10 @@
                                         <!-- <a href="<?php echo base_url(); ?>imovel/editar/<?php echo $g->current()->id_imovel ?>" class="btn btn-sm btn-info"><i class="fa fa-eyes"></i> Detalhes</a> -->
                                         <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=58d2e290369dcd0011893ee3&product=inline-share-buttons' async='async'></script>
                                         <div class="sharethis-inline-share-buttons"></div>
-                                    </div>
-                                    <a href="<?php echo base_url(); ?>imovel/editar/<?php echo $g->current()->id_imovel ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                        <button class="btn btn-sm btn-danger btn-delete-imo" data-id="<?php echo $g->current()->id_imovel; ?>"><i class="fa fa-trash"></i> Excluir</button>
+                                    </div>                                    
+                                    <a href="<?php echo base_url(); ?>imovel/editar/<?php echo $g->current()->id_imovel ?>" title="Editar" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                    <button class="btn btn-sm btn-danger btn-delete-imo" title="Excluir" data-id="<?php echo $g->current()->id_imovel; ?>"><i class="fa fa-trash"></i></button>
+                                    <a href="#" class="btn btn-sm btn-info" title="Ver mais fotos"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <?php

@@ -19,7 +19,6 @@ class Model_Imovel extends CI_Model {
         $sql = "SELECT T1.id AS id_imovel, T1.id_usuario, T1.id_proprietario, T1.imo_cod, T1.imo_tipo_imovel, T1.imo_cate, T1.imo_desc, T1.imo_tipo_neg, T1.imo_valor, T1.imo_excluido, T1.imo_image, T2.id, T2.nome FROM imovel AS T1
                 INNER JOIN proprietario AS T2 WHERE T1.id_proprietario = T2.id AND T1.imo_excluido = '0' AND T1.id_usuario = " . $id_user;
         $this->query = $this->db->query($sql);
-
         if ($this->query->num_rows() > 0) :
             $this->data = $this->query->result();
             return $this->data;
@@ -34,7 +33,6 @@ class Model_Imovel extends CI_Model {
                 ->from("$this->table")
                 ->where('id', $id);
         $this->query = $this->db->get();
-
         if ($this->query->num_rows() > 0) :
             $this->data = $this->query->result();
             return $this->data;
@@ -55,6 +53,19 @@ class Model_Imovel extends CI_Model {
             return $this->data;
         endif;
     }
+
+    /**
+     * Seleciona os proprietarios pelo ID
+     */
+    public function _countData() {
+        $sql = "SELECT COUNT(id) AS num_qtd FROM $this->table";
+        $this->query = $this->db->query($sql);
+        if ($this->query->num_rows() > 0) :
+            $this->data = $this->query->result();
+            return $this->data;
+        endif;
+    }
+
 
     /**
      * Insere os dados na tabela
