@@ -10,17 +10,21 @@ class Recebimento extends CI_Controller {
     public $_arrdata;
     public $_return;
 
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Model_Recebimento');
+    }
+    
+
     public function index() {
         if (isset($_SESSION['session'])) :
-            $this->load->model('Model_Recebimento');
             $session = $this->session->userdata('session');
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
             $data['data_rec'] = $this->Model_Recebimento->_selectAll($session->id);
-
             $this->load->view('recebimento/view', $data);
-
         else :
             header('Location: ' . base_url());
         endif;
@@ -37,7 +41,6 @@ class Recebimento extends CI_Controller {
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
             $this->load->view('recebimento/novo', $data);
         else :
             header('Location: ' . base_url());
@@ -50,18 +53,30 @@ class Recebimento extends CI_Controller {
 
     public function editar($id) {
         if (isset($_SESSION['session'])) :
-
             //armazena a sessao criada
-            $session = $this->session->userdata('session');
-
-            $this->load->model('Model_Recebimento');
+            $session = $this->session->userdata('session');            
             $data['data_rec'] = $this->Model_Recebimento->_selectById($id);
-
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
             $this->load->view('recebimento/editar', $data);
+        else :
+            header('Location: ' . base_url());
+        endif;
+    }
+
+    /*
+     * 
+     */
+    public function recibo($id) {
+        if (isset($_SESSION['session'])) :
+            //armazena a sessao criada
+            $session = $this->session->userdata('session');
+            $data['data_rec'] = $this->Model_Recebimento->_selectById($id);
+            //Atribui o nome armazenado na sessao
+            $data['name'] = $session->nome;
+            $data['level'] = $session->nivel;            
+            $this->load->view('recebimento/pdf', $data);
         else :
             header('Location: ' . base_url());
         endif;
@@ -78,7 +93,6 @@ class Recebimento extends CI_Controller {
         $this->data_rec = $this->input->post('edtData');
         $this->forma_pag = $this->input->post('cmbFormaPag');
         $this->valor = $this->input->post('edtValor');
-
         $this->_arrdata = array(
             "id_usuario" => $session->id,
             "cliente" => $this->cliente,
@@ -88,9 +102,7 @@ class Recebimento extends CI_Controller {
             "data_cadastro" => date('d/m/Y'),
             "excluido" => '0'
         );
-
         $this->_return = $this->Model_Recebimento->_insert($this->_arrdata);
-
         if ($this->_return) :
             echo 'TRUE';
         else :
@@ -103,14 +115,12 @@ class Recebimento extends CI_Controller {
      */
 
     public function setEdit() {
-        $this->load->model('Model_Recebimento');
-        
+        $this->load->model('Model_Recebimento');        
         $this->id = $this->input->post('edtIdRecebimento');
         $this->cliente = $this->input->post('edtCliente');
         $this->data_rec = $this->input->post('edtData');
         $this->forma_pag = $this->input->post('cmbFormaPag');
         $this->valor = $this->input->post('edtValor');
-
         $this->_arrdata = array(
             "cliente" => $this->cliente,
             "data_recebimento" => $this->data_rec,
@@ -119,9 +129,7 @@ class Recebimento extends CI_Controller {
             "data_alteracao" => date('d/m/Y'),
             "excluido" => '0'
         );
-
         $this->_return = $this->Model_Recebimento->_edit($this->id, $this->_arrdata);
-
         if ($this->_return) :
             echo 'TRUE';
         else :
@@ -134,13 +142,10 @@ class Recebimento extends CI_Controller {
      */
 
     public function setDelete() {
-        $this->load->model('Model_Recebimento');
         $this->id = $this->input->post('id');
-
         $this->_arrdata = array(
             "excluido" => '1'
         );
-
         $this->_return = $this->Model_Recebimento->_edit($this->id, $this->_arrdata);
         if ($this->_return) :
             echo "TRUE";
@@ -148,5 +153,4 @@ class Recebimento extends CI_Controller {
             echo "FALSE";
         endif;
     }
-
 }

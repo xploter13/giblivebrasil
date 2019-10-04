@@ -434,7 +434,7 @@
                                             <select name="cmbImovel" class="form-control" id="cmb-immobile"></select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="cmbTypeLoc">Tipo de Locação</label>
                                             <select name="cmbTipoLocacao" class="form-control" id="cmbTypeLoc">
@@ -446,23 +446,23 @@
                                                 <option value="Temporada">Temporada</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputPraLoc">Prazo de Locação</label>
-                                            <input type="text" class="form-control" name="edtPrazoLocacao" id="inputPraLoc" maxlength="50" placeholder="365 dias">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
+                                    </div>                                    
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="inputDateAtt">Início Contrato</label>
                                             <input type="text" class="form-control" name="edtDataIniLoc" id="inputDateLocIni" value="<?php echo date('d/m/Y'); ?>" maxlength="20" required/>
                                         </div>
                                     </div>                                    
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="inputDateLocVenc">Vencimento Contrato</label>
-                                            <input type="text" class="form-control" name="edtDataVencLoc" id="inputDateLocVenc" />
+                                            <input type="text" class="form-control" name="edtDataVencLoc" id="inputDateLocVenc" onchange="calcular();" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="inputPraLoc">Prazo de Locação</label>
+                                            <input type="text" class="form-control" name="edtPrazoLocacao" id="inputPraLoc" maxlength="50" placeholder="" disabled>
                                         </div>
                                     </div>
                                     <!-- /.dados de locação do imovel -->
@@ -548,7 +548,20 @@
              }); */
 
             $('.input-currency').maskMoney();
+            
         });
+
+        function calcular(){
+            var dt1 = document.getElementById("inputDateLocIni").value; 
+            var dt2 = document.getElementById("inputDateLocVenc").value;
+            var data1 = new Date(dateToEN(dt1));
+            var data2 = new Date(new Date(dateToEN(dt2)));
+            var total = (data2.getFullYear() - data1.getFullYear())*12 + (data2.getMonth() - data1.getMonth());
+            document.getElementById("inputPraLoc").value = total + ' ' + 'meses';
+        }
+        function dateToEN(date) {	
+	        return date.split('/').reverse().join('-');
+        }
     </script>
     <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-validator/validator.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>

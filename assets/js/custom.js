@@ -609,9 +609,9 @@ $('#frm-rec').validator().on('submit', function(e) {
             success: function(data) {
                 //console.log(data);
                 if (data === 'TRUE') {
-                    swal("", "Registros cadastrador com sucesso!", "success");
+                    swal("", "Pagamento recebido com sucesso!", "success");
                     setTimeout(function() {
-                        $(location).attr('href', BASEURL + 'recebimento');
+                        $(location).attr('href', BASEURL + 'recebimmento');
                     }, 3000);
                 } else if (data === 'FALSE') {
                     swal("", "Erro ao cadastrar!", "warning");

@@ -82,15 +82,7 @@
                                         <tbody>
                                             <?php
                                             if (empty($data_rec)) :
-                                                ?>
-                                                <tr>
-                                                    <td>Não existem dados cadastrados</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>   
-                                                <?php
+                                                //
                                             else :
                                                 $r = new ArrayIterator($data_rec);
                                                 while ($r->valid()):
@@ -101,7 +93,8 @@
                                                         <td><?php echo $r->current()->pagamento; ?></td>
                                                         <td><?php echo $r->current()->valor; ?></td>
                                                         <td>
-                                                            <a href="recebimento/editar/<?php echo $r->current()->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Editar</a>
+                                                            <a href="recebimento/recibo/<?php echo $r->current()->id; ?>" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-file-pdf-o"></i> Imprimir Recibo</a>
+                                                            <a href="recebimento/editar/<?php echo $r->current()->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Editar</a>                                                            
                                                             <button class="btn btn-sm btn-danger btn-delete-rec" data-id="<?php echo $r->current()->id; ?>"><i class="fa fa-trash"></i> Excluir</button>
                                                         </td>
                                                     </tr> 

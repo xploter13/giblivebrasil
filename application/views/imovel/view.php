@@ -5,27 +5,26 @@
     <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
-        <title>.: Gib Live Brasil | Imóvel :.</title>
+        <title>Gib Live Brasil | Imóvel</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
-        <meta content="" name="author" />	
+        <meta content="" name="author" />
+
         <!-- ================== BEGIN BASE CSS STYLE ================== -->
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-        <link href="<?php echo base_url(); ?>assets/plugins/jquery-ui-1.10.4/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/plugins/bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/plugins/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/css/style.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/css/style-responsive.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/css/theme/default.css" rel="stylesheet" id="theme" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+        <link href="assets/plugins/jquery-ui-1.10.4/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+        <link href="assets/plugins/bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="assets/plugins/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="assets/css/animate.min.css" rel="stylesheet" />
+        <link href="assets/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+        <link href="assets/css/style.min.css" rel="stylesheet" />
+        <link href="assets/css/style-responsive.min.css" rel="stylesheet" />
+        <link href="assets/css/theme/default.css" rel="stylesheet" id="theme" />
         <!-- ================== END BASE CSS STYLE ================== -->
 
         <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
-        <link href="<?php echo base_url(); ?>assets/plugins/isotope/isotope.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/plugins/lightbox/css/lightbox.css" rel="stylesheet" />
+        <link href="assets/plugins/DataTables-1.9.4/css/data-table.css" rel="stylesheet" />
         <!-- ================== END PAGE LEVEL STYLE ================== -->
-        
     </head>
     <body>
         <!-- begin #page-loader -->
@@ -41,67 +40,84 @@
                 <!-- begin breadcrumb -->
                 <ol class="breadcrumb pull-right">
                     <li><a href="<?php echo base_url(); ?>dashboard">Dashboard</a></li>
-                    <li><a href="<?php echo base_url(); ?>imovel">Imóvel</a></li>                    
-                    <li class="active"><a href="<?php echo base_url(); ?>galeria">Galeria</a></li>
+                    <li class="active">Imóvel</li>
                 </ol>
                 <!-- end breadcrumb -->
                 <!-- begin page-header -->
-                <h1 class="page-header">Galeria <small>Imagens de todos os imóveis cadastrados</small></h1>
+                <h1 class="page-header">Imóvel</h1>
                 <!-- end page-header -->
 
-                <div id="gallery" class="gallery">
+                <!-- begin row -->
+                <div class="row">
                     <div class="col-md-12">
-                        <a href="<?php echo base_url(); ?>imovel/novo" class="btn btn-sm btn-primary pull-right"><i class="fa fa-register"></i> Cadastrar Imóvel</a>
-                     </div> 
-                    <?php
-                    if (empty($data_imo)) :
-                        ?>
-                        <a href="http://"class="btn btn-primary">Cadastrar Imóvel</a>
-                        <?php
-                    else :
-                        $g = new ArrayIterator($data_imo);
-                        while ($g->valid()) :
-                            ?>                                              
-                            <div class="image gallery-group-1">
-                                <div class="image-inner">
-                                    <a href="<?php echo base_url() . 'assets/uploads/' . $g->current()->imo_image; ?>" data-lightbox="gallery-group-1">
-                                        <!-- <img src="<?php echo base_url() . 'assets/uploads/' . $g->current()->imo_image; ?>" alt="" /> -->
-                                        <img src="https://img1.ibxk.com.br/2019/02/25/25044125149117.jpg?w=700" alt="" />
-                                    </a>
-                                    <p class="image-caption">
-                                        <?php echo $g->current()->imo_cod . ' - ' . $g->current()->imo_tipo_imovel; ?>
-                                    </p>
+                        <ul class="list-inline pull-right">                            
+                            <li><a href="imovel/novo" class="btn btn-info">Novo Registro <i class="fa fa-plus"></i></a></li>
+                        </ul>
+                    </div>       
+
+                    <!-- begin col-12 -->
+                    <div class="col-md-12">
+                        <!-- begin panel -->
+                        <div class="panel panel-inverse">
+                            <div class="panel-heading">
+                                <div class="panel-heading-btn">
+                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                                 </div>
-                                <div class="image-info" style="min-height: 180px;">
-                                    <h5 class="title"><?php  echo 'R$ ' . $g->current()->imo_valor ;  ?></h5>
-                                    <div class="pull-right">
-                                        <small>cadastrado por</small> <a href="javascript:;"><?php echo $name; ?></a>
-                                    </div>
-                                    <b><?php echo $g->current()->imo_tipo_neg; ?></b> <br><br>
-                                    <div class="desc">
-                                        <!-- <a href="<?php echo base_url(); ?>imovel/editar/<?php echo $g->current()->id_imovel ?>" class="btn btn-sm btn-info"><i class="fa fa-eyes"></i> Detalhes</a> -->
-                                        <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=58d2e290369dcd0011893ee3&product=inline-share-buttons' async='async'></script>
-                                        <div class="sharethis-inline-share-buttons"></div>
-                                    </div>                                    
-                                    <a href="<?php echo base_url(); ?>imovel/editar/<?php echo $g->current()->id_imovel ?>" title="Editar" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                    <button class="btn btn-sm btn-danger btn-delete-imo" title="Excluir" data-id="<?php echo $g->current()->id_imovel; ?>"><i class="fa fa-trash"></i></button>
-                                    <a href="#" class="btn btn-sm btn-info" title="Ver mais fotos"><i class="fa fa-search"></i></a>
+                                <h4 class="panel-title">Imóveis Cadastradas</h4>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="data-table" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Proprietario</th>
+                                                <th>Tipo do Imóvel</th>
+                                                <th>Categoria</th>
+                                                <th>Tipo de Negociação</th>
+                                                <th>Valor</th>
+                                                <th>Ação</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            if (empty($data_imo)) :
+                                                //
+                                            else :
+                                                $i = new ArrayIterator($data_imo);
+                                                while ($i->valid()):
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $i->current()->nome; ?></td>
+                                                        <td><?php echo $i->current()->imo_tipo_imovel; ?></td>
+                                                        <td><?php echo $i->current()->imo_cate; ?></td>
+                                                        <td><?php echo $i->current()->imo_tipo_neg; ?></td>
+                                                        <td><?php echo $i->current()->imo_valor; ?></td>
+                                                        <td>
+                                                            <a href="<?php echo base_url(); ?>imovel/detalhes/<?php echo $i->current()->id_imovel; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i> Detalhes</a>
+                                                            <a href="imovel/editar/<?php echo $i->current()->id_imovel ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Editar</a>
+                                                            <button class="btn btn-sm btn-danger btn-delete-imo" data-id="<?php echo $i->current()->id_imovel; ?>"><i class="fa fa-trash"></i> Excluir</button>
+                                                        </td>
+                                                    </tr> 
+                                                    <?php
+                                                    $i->next();
+                                                endwhile;
+                                            endif;
+                                            ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <?php
-                            $g->next();
-                        endwhile;
-                    endif;
-                    ?>
+                        </div>
+                        <!-- end panel -->                
+                    </div>
+                    <!-- end col-12 -->
                 </div>
             </div>
-            <!-- end #content -->
-
-            <!-- begin scroll to top btn -->
-            <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
-            <!-- end scroll to top btn -->
         </div>
-        <!-- end page container -->
 
         <!-- ================== BEGIN BASE JS ================== -->
         <script src="<?php echo base_url(); ?>assets/plugins/jquery-1.8.2/jquery-1.8.2.min.js"></script>
@@ -117,10 +133,9 @@
         <!-- ================== END BASE JS ================== -->
 
         <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-        <script src="<?php echo base_url(); ?>assets/plugins/isotope/jquery.isotope.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/plugins/lightbox/js/lightbox-2.6.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/gallery.demo.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/dist/sweetalert2.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/DataTables-1.9.4/js/jquery.dataTables.js"></script>
+        <script src="<?php echo base_url(); ?>assets/plugins/DataTables-1.9.4/js/data-table.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/apps.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-validator/validator.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
@@ -128,7 +143,6 @@
         <script>
             $(document).ready(function () {
                 App.init();
-                Gallery.init();
                 $(".button-imo").addClass('active');
             });
         </script>

@@ -60,13 +60,20 @@ if ($qtd > 212) { header("Location: index.php?error=qtd_limite"); }
     Ao Imprimir o carnê certifique-se se a impressão está ajustada à página
     <br>
     <br>
-    <button class="btn-impress" onclick="window.print()">Imprimir</button>
+    <button class="btn-impress" onclick="MM_callJS('window.print();')">Imprimir</button>
    <!--  &nbsp;
     <?php echo "<a href=\"capa.php?endereco={$endereco_empresa}&tel={$tel_empresa}&logo={$logo}\" class=\"btn\" target=\"_blank\">
       Capa do carnê
     </a>"; ?>
     &nbsp; -->
     <a href="<?php echo base_url(); ?>carne" class="btn">Voltar</a>
+    <script type="text/javascript">
+    <!--
+    function MM_callJS(jsStr) { //v2.0
+      return eval(jsStr)
+    }
+    //-->
+    </script>
   </div>
 
   <?php

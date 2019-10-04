@@ -106,6 +106,10 @@ class Imovel extends CI_Controller
         endif;
     }
 
+    /*
+     * Edit
+     */
+
     public function editar($id)
     {
         if (isset($_SESSION['session'])) :
@@ -125,6 +129,33 @@ class Imovel extends CI_Controller
         //echo $this->state;
         $data['city'] = $this->Model_Loading_City->_getCityAll();
         $this->load->view('imovel/editar', $data); else :
+            header('Location: ' . base_url());
+        endif;
+    }
+
+    /*
+     * Details
+     */
+    public function detalhes($id)
+    {
+        if (isset($_SESSION['session'])) :
+            //armazena a sessao criada
+            $session = $this->session->userdata('session');
+            //retorna todos os estados
+            $this->_state = $this->Model_Loading_State->_getState();
+            if ($this->_state) :
+                $data['state'] = $this->_state;
+            endif;
+            $data['data_imo'] = $this->Model_Imovel->_selectById($id);
+            //retorna todos os proprietarios
+            $data['propri'] = $this->Model_Proprietario->_selectAll($session->id);
+            //Atribui o nome armazenado na sessao
+            $data['name'] = $session->nome;
+            $data['level'] = $session->nivel;
+            //echo $this->state;
+            $data['city'] = $this->Model_Loading_City->_getCityAll();
+            $this->load->view('imovel/detalhes', $data); 
+        else :
             header('Location: ' . base_url());
         endif;
     }
