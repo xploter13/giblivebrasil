@@ -5,7 +5,7 @@
     <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
-        <title>Gib Live Brasil | Contrato</title>
+        <title>Gib Live Brasil | Relatório de Cliente</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
@@ -14,7 +14,7 @@
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>assets/plugins/jquery-ui-1.10.4/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>assets/plugins/bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/plugins/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="../assets/plugins/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>assets/css/style.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>assets/css/style-responsive.min.css" rel="stylesheet" />
@@ -38,22 +38,17 @@
             <div id="content" class="content">
                 <!-- begin breadcrumb -->
                 <ol class="breadcrumb pull-right">
-                    <li><a href="<?php echo base_url();?>dashboard">Dashboard</a></li>
-                    <li class="active">Contrato</li>
+                    <li><a href="<?php echo base_url(); ?>dashboard">Dashboard</a></li>
+                    <li>Relatório</li>
+                    <li class="active">Auditoria</li>
                 </ol>
                 <!-- end breadcrumb -->
                 <!-- begin page-header -->
-                <h1 class="page-header">Contrato</h1>
+                <h1 class="page-header">&nbsp;</h1>
                 <!-- end page-header -->
 
                 <!-- begin row -->
                 <div class="row">
-                    <div class="col-md-12">
-                        <ul class="list-inline pull-right">
-                            <li><a href="emitir" class="btn btn-info pull-right">Emitir Contrato <i class="fa fa-file-o"></i></a></li>
-                        </ul>
-                    </div>       
-
                     <!-- begin col-12 -->
                     <div class="col-md-12">
                         <!-- begin panel -->
@@ -65,7 +60,7 @@
                                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                                 </div>
-                                <h4 class="panel-title">Locações Cadastradas</h4>
+                                <h4 class="panel-title">Relatório de Auditoria</h4>
                             </div>
 
                             <div class="panel-body">
@@ -73,37 +68,33 @@
                                     <table id="data-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Locatário</th>
-                                                <th>Renda Mensal</th>
-                                                <th>Telefone</th>
-                                                <th>Celular</th>
-                                                <th>Início do contrato</th>
-                                                <th>Vencimento do contrato</th>
+                                                <th>Cód</th>
+                                                <th>Proprietário</th>
+                                                <th>Imóvel</th>
+                                                <th>Embolsos</th>
+                                                <th>Pisos</th>
+                                                <th>Pintura</th>
                                                 <th>Ação</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if (empty($data_loc)) :
-                                                //
+                                            if (empty($data_audi)) :
+                                                //                                                
                                             else :
-                                                $l = new ArrayIterator($data_loc);
-                                                while ($l->valid()):
+                                                $a = new ArrayIterator($data_audi);
+                                                while ($a->valid()):
                                                     ?>
                                                     <tr>
-                                                        <td><?php echo $l->current()->loc_nome; ?></td>
-                                                        <td><?php echo $l->current()->loc_renda_mensal; ?></td>
-                                                        <td><?php echo $l->current()->loc_tel; ?></td>
-                                                        <td><?php echo $l->current()->loc_cel; ?></td>
-                                                        <td><?php echo $l->current()->loc_data_ini_contrato; ?></td>
-                                                        <td><?php echo $l->current()->loc_data_venc_contrato; ?></td>
-                                                        <td>
-                                                            <a href="locacao/editar/<?php echo $l->current()->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                            <button class="btn btn-sm btn-danger btn-delete-loc" data-id="<?php echo $l->current()->id; ?>"><i class="fa fa-trash"></i> Excluir</button>
-                                                        </td>
-                                                    </tr> 
+                                                        <td><?php echo $a->current()->imo_cod; ?></td>
+                                                        <td><?php echo $a->current()->nome; ?></td>
+                                                        <td><?php echo $a->current()->imo_desc; ?></td>
+                                                        <td><?php echo $a->current()->audi_embolso_qto_sla; ?></td>
+                                                        <td><?php echo $a->current()->audi_pisos_qto_sla; ?></td>
+                                                        <td><?php echo $a->current()->audi_pintura_qto_sla; ?></td>                                                        
+                                                    </tr>
                                                     <?php
-                                                    $l->next();
+                                                    $a->next();
                                                 endwhile;
                                             endif;
                                             ?>
@@ -112,26 +103,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- end panel -->
-
-                        <!-- #modal-message -->
-                        <div class="modal modal-message fade" id="modal-message">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h4 class="modal-title">Exclusão de Locação</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p class="msg"></p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Não</a>
-                                        <a href="javascript:;" class="btn btn-sm btn-primary" id="btn-delete-ok">Sim</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- end panel -->  
                     </div>
                     <!-- end col-12 -->
                 </div>
@@ -152,8 +124,20 @@
         <!-- ================== END BASE JS ================== -->
 
         <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-        <script src="<?php echo base_url(); ?>assets/plugins/DataTables-1.9.4/js/jquery.dataTables.js"></script>
+        <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        <!-- ================= BUTTONS DATATABLE ==================== -->        
+        <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+        <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+        <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+        <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+        <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
+        <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+        <!-- ================== DATATABLE INITIALIZE ================== -->
         <script src="<?php echo base_url(); ?>assets/plugins/DataTables-1.9.4/js/data-table.js"></script>
+        <!-- ================== JS ================== -->
         <script src="<?php echo base_url(); ?>assets/js/apps.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-validator/validator.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
@@ -161,7 +145,7 @@
         <script>
             $(document).ready(function () {
                 App.init();
-                $(".button-docs").addClass('active');
+                $(".button-rel").addClass('active');
             });
         </script>
     </body>

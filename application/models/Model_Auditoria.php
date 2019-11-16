@@ -16,11 +16,10 @@ class Model_Auditoria extends CI_Model {
      * Seleciona todos os registros de acordo com o usuario logado
      */
     public function _selectAll($id_user) {
-        $sql = "SELECT T1.*, T2.id AS id_imo, T2.imo_cod, T2.imo_desc FROM auditoria AS T1
-                INNER JOIN imovel AS T2 WHERE T1.id_imovel = T2.id 
-                AND T1.id_usuario =" . $id_user;
+        $sql = "SELECT T1.*, T2.id AS id_imo, T2.imo_cod, T2.imo_desc, T3.id AS id_prop, T3.nome FROM auditoria AS T1
+        INNER JOIN imovel AS T2 INNER JOIN proprietario AS T3 WHERE T1.id_imovel = T2.id
+        AND T1.id_proprietario = T3.id AND T1.id_usuario = " . $id_user;
         $this->query = $this->db->query($sql);
-
         if ($this->query->num_rows() > 0) :
             $this->data = $this->query->result();
             return $this->data;
@@ -34,7 +33,6 @@ class Model_Auditoria extends CI_Model {
     public function _selectImoble($id_user) {
         $sql = "SELECT * FROM imovel WHERE id_usuario = " . $id_user;
         $this->query = $this->db->query($sql);
-
         if ($this->query->num_rows() > 0) :
             $this->data = $this->query->result();
             return $this->data;

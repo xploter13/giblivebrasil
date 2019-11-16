@@ -75,6 +75,7 @@
                                     <table id="data-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
+                                                <th>COD</th>
                                                 <th>Locatário</th>
                                                 <th>Locador</th>
                                                 <th>Telefone</th>
@@ -87,22 +88,13 @@
                                         <tbody>
                                             <?php
                                             if (empty($data_loc)) :
-                                                ?>
-                                                <tr>
-                                                    <td>Não existem dados cadastrados</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>   
-                                                <?php
+                                            //
                                             else :
                                                 $l = new ArrayIterator($data_loc);
                                                 while ($l->valid()):
                                                     ?>
                                                     <tr>
+                                                        <td><?php echo $l->current()->id_locacao; ?></td>
                                                         <td><?php echo $l->current()->cli_nome; ?></td>
                                                         <td><?php echo $l->current()->propri_nome; ?></td>
                                                         <td><?php echo $l->current()->loc_tel; ?></td>

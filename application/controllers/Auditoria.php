@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Auditoria extends CI_Controller {
 
     public $id;
+    public $proprietario;
     public $imovel;
     // Sala e Quarto
     public $tomadaSlaQto;
@@ -50,19 +51,22 @@ class Auditoria extends CI_Controller {
     public $_arrdata;
     public $_return;
 
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Model_Auditoria');
+        $this->load->model('Model_Proprietario');
+    }
+    
+
     public function index() {
-        if (isset($_SESSION['session'])) :
-
-            $this->load->model('Model_Auditoria');
-
+        if (isset($_SESSION['session'])) :            
             $session = $this->session->userdata('session');
-
             //retorna todos as auditorias
             $data['data_audi'] = $this->Model_Auditoria->_selectAll($session->id);
-
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
             $this->load->view('auditoria/view', $data);
         else :
             header('Location: ' . base_url());
@@ -77,15 +81,12 @@ class Auditoria extends CI_Controller {
         if (isset($_SESSION['session'])) :
             //armazena a sessao criada
             $session = $this->session->userdata('session');
-
             //retorna todos os imoveis
-            $this->load->model('Model_Auditoria');
             $data['data_imo'] = $this->Model_Auditoria->_selectImoble($session->id);
-
+            $data['data_proprietario'] = $this->Model_Proprietario->_selectAll($session->id);
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
             $this->load->view('auditoria/novo', $data);
         else :
             header('Location: ' . base_url());
@@ -97,20 +98,16 @@ class Auditoria extends CI_Controller {
      */
 
     public function editar($id) {
-
         if (isset($_SESSION['session'])) :
             //armazena a sessao criada
             $session = $this->session->userdata('session');
-
-            //retorna todos os imoveis
-            $this->load->model('Model_Auditoria');            
+            //retorna todos os imoveis          
             $data['data_imo'] = $this->Model_Auditoria->_selectImoble($session->id);            
+            $data['data_proprietario'] = $this->Model_Proprietario->_selectAll($session->id);
             $data['data_audi'] = $this->Model_Auditoria->_selectById($id);
-
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
             $this->load->view('auditoria/editar', $data);
         else :
             header('Location: ' . base_url());
@@ -123,8 +120,7 @@ class Auditoria extends CI_Controller {
 
     public function setInsert() {
         $session = $this->session->userdata('session');
-        $this->load->model('Model_Auditoria');
-
+        $this->proprietario = $this->input->post('cmbProprietario');
         $this->imovel = $this->input->post('cmbImovel');
         // Quarto e Sala
         $this->tomadaSlaQto = $this->input->post('cmbQtoSala');
@@ -166,9 +162,9 @@ class Auditoria extends CI_Controller {
         $this->portaAreaServico = $this->input->post('cmbPortaAreaServico');
         $this->janelaAreaServico = $this->input->post('cmbJanelaAreaServico');
         $this->obsAreaServico = $this->input->post('cmbObsAreaServico');
-
         $this->_arrdata = array(
             "id_usuario" => $session->id,
+            "id_proprietario" => "$this->proprietario",
             "id_imovel" => "$this->imovel",
             "audi_tomada_qto_sla" => "$this->tomadaSlaQto",
             "audi_embolso_qto_sla" => "$this->embolsoSlaQto",
@@ -208,13 +204,7 @@ class Auditoria extends CI_Controller {
             "audi_obs_area" => "$this->obsAreaServico",
             "audi_data_cadastro" => date('d/m/Y')
         );
-
-       /* echo "<pre>";
-     print_r($this->_arrdata);
-      echo "</pre>";  */
-
        $this->_return = $this->Model_Auditoria->_insert($this->_arrdata);
-
         if ($this->_return) :
             echo 'TRUE';
         else :
@@ -227,13 +217,10 @@ class Auditoria extends CI_Controller {
      */
 
     public function setEdit() {
-        $session = $this->session->userdata('session');
-        $this->load->model('Model_Auditoria');
-        
+        $session = $this->session->userdata('session');        
         $this->id = $this->input->post('edtID');
-
-        $this->imovel = $this->input->post('cmbImovel');
-        
+        $this->proprietario = $this->input->post('cmbProprietario');
+        $this->imovel = $this->input->post('cmbImovel');        
         // Quarto e Sala
         $this->tomadaSlaQto = $this->input->post('cmbQtoSala');
         $this->embolsoSlaQto = $this->input->post('cmbEmbolso');
@@ -274,10 +261,9 @@ class Auditoria extends CI_Controller {
         $this->portaAreaServico = $this->input->post('cmbPortaAreaServico');
         $this->janelaAreaServico = $this->input->post('cmbJanelaAreaServico');
         $this->obsAreaServico = $this->input->post('cmbObsAreaServico');
-
-
         $this->_arrdata = array(
             "id_usuario" => $session->id,
+            "id_proprietario" => "$this->proprietario",
             "id_imovel" => "$this->imovel",
             "audi_tomada_qto_sla" => "$this->tomadaSlaQto",
             "audi_embolso_qto_sla" => "$this->embolsoSlaQto",
@@ -317,13 +303,7 @@ class Auditoria extends CI_Controller {
             "audi_obs_area" => "$this->obsAreaServico",
             "audi_data_cadastro" => date('d/m/Y')
         );
-
-//        echo "<pre>";
-//        print_r($this->_arrdata);
-//        echo "</pre>";
-
         $this->_return = $this->Model_Auditoria->_edit($this->id, $this->_arrdata);
-
         if ($this->_return) :
             echo 'TRUE';
         else :
@@ -337,11 +317,8 @@ class Auditoria extends CI_Controller {
      */
 
     public function setDelete() {
-        $this->load->model('Model_Auditoria');
         $this->id = $this->input->post('id');
-
-        $this->_return = $this->Model_Auditoria->_delete($this->id);
-        
+        $this->_return = $this->Model_Auditoria->_delete($this->id);        
         if ($this->_return) :
             echo "TRUE";
         else :

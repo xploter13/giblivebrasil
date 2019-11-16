@@ -29,7 +29,6 @@
         <!-- begin #page-loader -->
         <div id="page-loader" class="fade in"><span class="spinner"></span></div>
         <!-- end #page-loader -->
-
         <!-- begin #page-container -->
         <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
             <?php require 'assets/includes/header.php'; ?>
@@ -46,11 +45,8 @@
                 <!-- begin page-header -->
                 <h1 class="page-header">&nbsp;</h1>
                 <!-- end page-header -->
-
                 <!-- begin row -->
                 <div class="row">
-
-
                     <!-- begin col-12 -->
                     <div class="col-md-12">
                         <!-- begin panel -->
@@ -80,16 +76,7 @@
                                         <tbody>
                                             <?php
                                             if (empty($data_cli)) :
-                                                ?>
-                                                <tr>
-                                                    <td>Não existem dados cadastrados</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>   
-                                                <?php
+                                                //
                                             else :
                                                 $c = new ArrayIterator($data_cli);
                                                 while ($c->valid()):

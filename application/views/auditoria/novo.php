@@ -76,16 +76,44 @@
                                         <div class="col-md-12">
                                             <legend>Dados Básicos</legend>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="cmbImoble">Proprietário</label>
+                                                <select name="cmbProprietario" class="form-control" id="cmbPropri" required>
+                                                    <?php
+                                                    if (empty($data_proprietario)) :
+                                                        ?>
+                                                        <option value="">Dados não encontrados</option>
+                                                        <?php
+                                                    else :
+                                                        ?>
+                                                        <option value="" selected disabled>Selecione</option>
+                                                        <?php
+                                                        $i = new ArrayIterator($data_proprietario);
+                                                        while ($i->valid()) :
+                                                            ?>
+                                                            <option value="<?php echo $i->current()->id_proprietario; ?>"><?php echo $i->current()->nome; ?></option>
+                                                            <?php
+                                                            $i->next();
+                                                        endwhile;
+                                                    endif;
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbImoble">Imóvel</label>
-                                                <select name="cmbImovel" class="form-control" id="cmbImoble">
+                                                <select name="cmbImovel" class="form-control" id="cmbImoble" required>
                                                     <?php
                                                     if (empty($data_imo)) :
                                                         ?>
                                                         <option value="">Dados não encontrados</option>
                                                         <?php
                                                     else :
+                                                        ?>
+                                                        <option value="" selected disabled>Selecione</option>
+                                                        <?php
                                                         $i = new ArrayIterator($data_imo);
                                                         while ($i->valid()) :
                                                             ?>
@@ -104,7 +132,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbHoursAtt">Tomadas - Espelhos</label>
-                                                <select name="cmbQtoSala" class="form-control" id="cmbQtoSala">
+                                                <select name="cmbQtoSala" class="form-control" id="cmbQtoSala" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -116,7 +145,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbEmb">Embolso</label>
-                                                <select name="cmbEmbolso" class="form-control" id="cmbEmb">
+                                                <select name="cmbEmbolso" class="form-control" id="cmbEmb" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -128,7 +158,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbPis">Pisos</label>
-                                                <select name="cmbPisos" class="form-control" id="cmbPis">
+                                                <select name="cmbPisos" class="form-control" id="cmbPis" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -140,7 +171,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbPrint">Pintura</label>
-                                                <select name="cmbPintura" class="form-control" id="cmbPrint">
+                                                <select name="cmbPintura" class="form-control" id="cmbPrint" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -152,7 +184,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbDoor">Porta(s)</label>
-                                                <select name="cmbPorta" class="form-control" id="cmbDoor">
+                                                <select name="cmbPorta" class="form-control" id="cmbDoor" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -164,7 +197,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbWindow">Janela(s)</label>
-                                                <select name="cmbJanela" class="form-control" id="cmbWindow">
+                                                <select name="cmbJanela" class="form-control" id="cmbWindow" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -185,7 +219,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbTorn">Torneira</label>
-                                                <select name="cmbTorn" class="form-control" id="cmbTorn">
+                                                <select name="cmbTorn" class="form-control" id="cmbTorn" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -197,7 +232,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbCif">Cifrão</label>
-                                                <select name="cmbCifrao" class="form-control" id="cmbCif">
+                                                <select name="cmbCifrao" class="form-control" id="cmbCif" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -209,7 +245,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbToma">Tomadas - Espelhos</label>
-                                                <select name="cmbTomada" class="form-control" id="cmbToma">
+                                                <select name="cmbTomada" class="form-control" id="cmbToma" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -221,7 +258,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbEmbCozi">Embolso</label>
-                                                <select name="cmbEmbCozinha" class="form-control" id="cmbEmbCozi">
+                                                <select name="cmbEmbCozinha" class="form-control" id="cmbEmbCozi" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -233,7 +271,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbPisCozi">Pisos</label>
-                                                <select name="cmbPisCozinha" class="form-control" id="cmbPisCozi">
+                                                <select name="cmbPisCozinha" class="form-control" id="cmbPisCozi" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -245,7 +284,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbPrintCozi">Pintura</label>
-                                                <select name="cmbPinturaCozinha" class="form-control" id="cmbPrintCozi">
+                                                <select name="cmbPinturaCozinha" class="form-control" id="cmbPrintCozi" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -257,7 +297,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbDoorCozi">Porta(s)</label>
-                                                <select name="cmbPortaCozinha" class="form-control" id="cmbDoorCozi">
+                                                <select name="cmbPortaCozinha" class="form-control" id="cmbDoorCozi" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -269,7 +310,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbWindowCozi">Janela(s)</label>
-                                                <select name="cmbJanelaCozinha" class="form-control" id="cmbWindowCozi">
+                                                <select name="cmbJanelaCozinha" class="form-control" id="cmbWindowCozi" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -290,7 +332,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbTornBanh">Torneira</label>
-                                                <select name="cmbTorneiraBanh" class="form-control" id="cmbTornBanh">
+                                                <select name="cmbTorneiraBanh" class="form-control" id="cmbTornBanh" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -302,7 +345,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbCifBanh">Cifrão</label>
-                                                <select name="cmbCifraoBanheiro" class="form-control" id="cmbCifBanh">
+                                                <select name="cmbCifraoBanheiro" class="form-control" id="cmbCifBanh"required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -314,7 +358,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbVasSani">Vaso Sanitário</label>
-                                                <select name="cmbVasoSanitarioBanh" class="form-control" id="cmbVasSani">
+                                                <select name="cmbVasoSanitarioBanh" class="form-control" id="cmbVasSani" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -326,7 +371,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbChuv">Chuveiro</label>
-                                                <select name="cmbChuveiroBanh" class="form-control" id="cmbChuv">
+                                                <select name="cmbChuveiroBanh" class="form-control" id="cmbChuv" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -338,7 +384,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbRaloBanh">Ralo</label>
-                                                <select name="cmbRaloBanheiro" class="form-control" id="cmbRaloBanh">
+                                                <select name="cmbRaloBanheiro" class="form-control" id="cmbRaloBanh" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -350,7 +397,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbTomaBanh">Tomadas - Espelhos</label>
-                                                <select name="cmbTomadaBanh" class="form-control" id="cmbTomaBanh">
+                                                <select name="cmbTomadaBanh" class="form-control" id="cmbTomaBanh" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -362,7 +410,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbEmbBanh">Embolso</label>
-                                                <select name="cmbEmbolsoBanh" class="form-control" id="cmbEmbBanh">
+                                                <select name="cmbEmbolsoBanh" class="form-control" id="cmbEmbBanh" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -374,7 +423,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbPisBanh">Pisos</label>
-                                                <select name="cmbPisoBanh" class="form-control" id="cmbPisBanh">
+                                                <select name="cmbPisoBanh" class="form-control" id="cmbPisBanh" required>
+                                                    <option value="" selected disabled>Selecione</option>   
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -386,7 +436,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbPrintBanh">Pintura</label>
-                                                <select name="cmbPinturaBanh" class="form-control" id="cmbPrintBanh">
+                                                <select name="cmbPinturaBanh" class="form-control" id="cmbPrintBanh" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -398,7 +449,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbDoorBanh">Porta(s)</label>
-                                                <select name="cmbPortaBanh" class="form-control" id="cmbPortaBanh">
+                                                <select name="cmbPortaBanh" class="form-control" id="cmbPortaBanh" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -410,7 +462,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbWindowBanh">Janela(s)</label>
-                                                <select name="cmbJanelaBanh" class="form-control" id="cmbWindowBanh">
+                                                <select name="cmbJanelaBanh" class="form-control" id="cmbWindowBanh" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -431,7 +484,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbTornAreaService">Torneira</label>
-                                                <select name="cmbTornAreaServico" class="form-control" id="cmbTornAreaService">
+                                                <select name="cmbTornAreaServico" class="form-control" id="cmbTornAreaService" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -443,7 +497,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbCifAreaService">Cifrão</label>
-                                                <select name="cmbCifAreaServico" class="form-control" id="cmbCifAreaService">
+                                                <select name="cmbCifAreaServico" class="form-control" id="cmbCifAreaService" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -455,7 +510,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbTomaAreaService">Tomadas - Espelhos</label>
-                                                <select name="cmbTomaAreaServico" class="form-control" id="cmbTomaAreaServico">
+                                                <select name="cmbTomaAreaServico" class="form-control" id="cmbTomaAreaServico" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -467,7 +523,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbEmbAreaService">Embolso</label>
-                                                <select name="cmbEmbAreaServico" class="form-control" id="cmbEmbAreaService">
+                                                <select name="cmbEmbAreaServico" class="form-control" id="cmbEmbAreaService" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -479,7 +536,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbPisAreaService">Pisos</label>
-                                                <select name="cmbPisAreaServico" class="form-control" id="cmbPisAreaService">
+                                                <select name="cmbPisAreaServico" class="form-control" id="cmbPisAreaService" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -491,7 +549,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbPrintAreaService">Pintura</label>
-                                                <select name="cmbPinturaAreaServico" class="form-control" id="cmbPrintAreaService">
+                                                <select name="cmbPinturaAreaServico" class="form-control" id="cmbPrintAreaService" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -503,7 +562,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbDoorAreaService">Porta(s)</label>
-                                                <select name="cmbPortaAreaServico" class="form-control" id="cmbDoorAreaService">
+                                                <select name="cmbPortaAreaServico" class="form-control" id="cmbDoorAreaService" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -515,7 +575,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="cmbWindowAreaService">Janela(s)</label>
-                                                <select name="cmbJanelaAreaServico" class="form-control" id="cmbWindowAreaService">
+                                                <select name="cmbJanelaAreaServico" class="form-control" id="cmbWindowAreaService" required>
+                                                    <option value="" selected disabled>Selecione</option>
                                                     <option value="Ótimo">Ótimo</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Regular">Regular</option>
@@ -595,12 +656,7 @@
             });
         </script>
         <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-validator/validator.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
-        <script>
-            function loadSelect() {
-                //
-            }
-        </script>
+        <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>        
     </body>
 </html>
 

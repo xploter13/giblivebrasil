@@ -111,6 +111,7 @@ if ($level === '1') :
                         </span>
                     </a>
                     <ul class="sub-menu">
+                        <li><a href="<?php echo base_url(); ?>relatorio/auditoria">Auditoria</a></li>
                         <li><a href="<?php echo base_url(); ?>relatorio/cliente">Cliente</a></li>
                         <li><a href="<?php echo base_url(); ?>relatorio/proprietario">Proprietário</a></li>
                         <li><a href="<?php echo base_url(); ?>relatorio/crm">CRM</a></li>
@@ -126,7 +127,8 @@ if ($level === '1') :
                         <span>Configuração</span>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="<?php echo base_url(); ?>usuario">Usuário</a></li>
+                        <li><a href="#">Minha Conta</a></li>
+                        <li><a href="<?php echo base_url(); ?>usuario">Usuário</a></li>                        
                     </ul>
                 </li>        
                 <li class="has-sub button-help">
@@ -250,12 +252,13 @@ else :
                         </span>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="#">Proprietário</a></li>
-                        <li><a href="#">CRM</a></li>
-                        <li><a href="#">Imóvel</a></li>
-                        <li><a href="#">Locação</a></li>
-                        <li><a href="#">Funcionário</a></li>
-                        <li><a href="#">Usuários</a></li>
+                        <li><a href="<?php echo base_url(); ?>relatorio/auditoria">Auditoria</a></li>
+                        <li><a href="<?php echo base_url(); ?>relatorio/cliente">Cliente</a></li>
+                        <li><a href="<?php echo base_url(); ?>relatorio/proprietario">Proprietário</a></li>
+                        <li><a href="<?php echo base_url(); ?>relatorio/crm">CRM</a></li>
+                        <li><a href="<?php echo base_url(); ?>relatorio/imovel">Imóvel</a></li>
+                        <li><a href="<?php echo base_url(); ?>relatorio/locacao">Locação</a></li>
+                        <li><a href="<?php echo base_url(); ?>relatorio/funcionario">Funcionário</a></li>
                     </ul>
                 </li>
                 <li class="has-sub button-help">

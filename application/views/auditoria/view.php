@@ -73,12 +73,11 @@
                                         <thead>
                                             <tr>
                                                 <th>Cód</th>
+                                                <th>Proprietário</th>
                                                 <th>Imóvel</th>
-                                                <th>Tomada Quarto e Sala</th>
-                                                <th>Embolso</th>
+                                                <th>Embolsos</th>
                                                 <th>Pisos</th>
                                                 <th>Pintura</th>
-                                                <th>Porta</th>
                                                 <th>Ação</th>
                                             </tr>
                                         </thead>
@@ -92,13 +91,13 @@
                                                     ?>
                                                     <tr>
                                                         <td><?php echo $a->current()->imo_cod; ?></td>
+                                                        <td><?php echo $a->current()->nome; ?></td>
                                                         <td><?php echo $a->current()->imo_desc; ?></td>
-                                                        <td><?php echo $a->current()->audi_tomada_qto_sla; ?></td>
                                                         <td><?php echo $a->current()->audi_embolso_qto_sla; ?></td>
                                                         <td><?php echo $a->current()->audi_pisos_qto_sla; ?></td>
                                                         <td><?php echo $a->current()->audi_pintura_qto_sla; ?></td>
-                                                        <td><?php echo $a->current()->audi_porta_qto_sla; ?></td>
                                                         <td>
+                                                            <a href="recebimento/recibo/1" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-file-pdf-o"></i> Emitir</a>
                                                             <a href="auditoria/editar/<?php echo $a->current()->id ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Editar</a>
                                                             <button class="btn btn-sm btn-danger btn-delete-auditoria" data-id="<?php echo $a->current()->id; ?>"><i class="fa fa-trash"></i> Excluir</button>
                                                         </td>
@@ -114,32 +113,11 @@
                             </div>
                         </div>
                         <!-- end panel -->
-
-                        <!-- #modal-message -->
-                        <div class="modal modal-message fade" id="modal-message">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h4 class="modal-title">Exclusão de CRM</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p class="msg"></p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Não</a>
-                                        <a href="javascript:;" class="btn btn-sm btn-primary" id="btn-delete-ok">Sim</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <!-- end col-12 -->
                 </div>
             </div>
         </div>
-
         <!-- ================== BEGIN BASE JS ================== -->
         <script src="<?php echo base_url(); ?>assets/plugins/jquery-1.8.2/jquery-1.8.2.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>

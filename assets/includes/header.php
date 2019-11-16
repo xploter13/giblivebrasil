@@ -91,7 +91,7 @@
 <!--                                        <li><a href="javascript:;">Edit Profile</a></li>
                                         <li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
                                         <li><a href="javascript:;">Calendar</a></li>-->
-                                        <li><a href="javascript:;">Configuração</a></li>
+                                        <li><a href="javascript:;">Minha Conta</a></li>
                                         <li class="divider"></li>
                                         <li><a href="<?php echo base_url(); ?>logout">Sair do sistema</a></li>
                                     </ul>

@@ -80,8 +80,35 @@
                                         <div class="msg"></div>
                                         <form id="frm-audi-edit">
                                             <fieldset>
-                                                <legend>Dados Básicos</legend>
-                                                <div class="col-md-3">
+                                                <div class="col-md-12">
+                                                    <legend>Dados Básicos</legend>
+                                                </div>                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="cmbImoble">Proprietário</label>
+                                                        <select name="cmbProprietario" class="form-control" id="cmbPropri" required>
+                                                            <?php
+                                                            if (empty($data_proprietario)) :
+                                                                ?>
+                                                                <option value="">Dados não encontrados</option>
+                                                                <?php
+                                                            else :
+                                                                ?>
+                                                                <option value="" selected disabled>Selecione</option>
+                                                                <?php
+                                                                $i = new ArrayIterator($data_proprietario);
+                                                                while ($i->valid()) :
+                                                                    ?>
+                                                                    <option value="<?php echo $i->current()->id_proprietario; ?>"><?php echo $i->current()->nome; ?></option>
+                                                                    <?php
+                                                                    $i->next();
+                                                                endwhile;
+                                                            endif;
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="cmbImoble">Imóvel</label>
                                                         <select name="cmbImovel" class="form-control" id="cmbImoble">
@@ -104,11 +131,13 @@
                                                         <input type="hidden" value="<?php echo $a->current()->id; ?>" name="edtID">
                                                     </div>
                                                 </div>
-                                                <legend>Quarto(s) e Sala(s)</legend>
+                                                <div class="col-md-12">
+                                                    <legend>Quarto(s) e Sala(s)</legend>
+                                                </div>                                                
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="cmbHoursAtt">Tomadas - Espelhos</label>
-                                                        <select name="cmbQtoSala" class="form-control" id="cmbQtoSala">
+                                                        <select name="cmbQtoSala" class="form-control" id="cmbTomadaQtoSala">
                                                             <option value="Ótimo">Ótimo</option>
                                                             <option value="Bom">Bom</option>
                                                             <option value="Regular">Regular</option>
@@ -180,10 +209,12 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="cmbObsQtSala">Observação</label>
-                                                        <textarea name="cmbObsQtSala" class="form-control" id="cmbObsQtSala" rows="8" cols="50"></textarea>
+                                                        <textarea name="cmbObsQtSala" class="form-control" id="cmbObsQtSala" rows="8" cols="50"><?php echo $a->current()->audi_obs_qto_sla; ?></textarea>
                                                     </div>
                                                 </div>
-                                                <legend>Cozinha</legend>  
+                                                <div class="col-md-12">
+                                                    <legend>Cozinha</legend>  
+                                                </div>                                                
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="cmbTorn">Torneira</label>
@@ -283,10 +314,12 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="cmbObsCozi">Observação</label>
-                                                        <textarea name="cmbObsCozinha" class="form-control" id="cmbObsCozi" rows="8" cols="50"></textarea>
+                                                        <textarea name="cmbObsCozinha" class="form-control" id="cmbObsCozi" rows="8" cols="50"><?php echo $a->current()->audi_obs_coz; ?></textarea>
                                                     </div>
                                                 </div>
-                                                <legend>Banheiro</legend>  
+                                                <div class="col-md-12">
+                                                    <legend>Banheiro</legend>   
+                                                </div>                                              
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="cmbTornBanh">Torneira</label>
@@ -422,10 +455,12 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="cmbObsBanh">Observação</label>
-                                                        <textarea name="obsBanh" class="form-control" id="ObsBanh" rows="8" cols="50"></textarea>
+                                                        <textarea name="obsBanh" class="form-control" id="ObsBanh" rows="8" cols="50"><?php echo $a->current()->audi_obs_banh; ?></textarea>
                                                     </div>
+                                                </div>                                                
+                                                <div class="col-md-12">
+                                                    <legend>Área de Serviço</legend>
                                                 </div>
-                                                <legend>Área de Serviço</legend>  
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="cmbTornAreaService">Torneira</label>
@@ -525,7 +560,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="cmbObsAreaService">Observação</label>
-                                                        <textarea name="cmbObsAreaServico" class="form-control" id="cmbObsAreaService" rows="8" cols="50"></textarea>
+                                                        <textarea name="cmbObsAreaServico" class="form-control" id="cmbObsAreaService" rows="8" cols="50"><?php echo $a->current()->audi_obs_area; ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 no-margin">                                            
@@ -538,23 +573,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <!-- end panel -->
-
-                                <!-- #modal-message -->
-                                <div class="modal modal-message fade" id="modal-message">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <h4 class="modal-title">Auditoria</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p class="msg"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                <!-- end panel -->                                
                             </div>
                             <!-- end col-12 -->
                         </div>
@@ -606,15 +625,44 @@
                         });
 
                         $('.input-currency').maskMoney();
+                        $('#cmbPropri').val("<?php echo $a->current()->id_proprietario; ?>");
+                        $('#cmbImoble').val("<?php echo $a->current()->id_imovel; ?>");
+                        $('#cmbTomadaQtoSala').val("<?php echo $a->current()->audi_tomada_qto_sla; ?>");
+                        $('#cmbEmb').val("<?php echo $a->current()->audi_embolso_qto_sla; ?>");
+                        $('#cmbPis').val("<?php echo $a->current()->audi_pisos_qto_sla; ?>");
+                        $('#cmbPrint').val("<?php echo $a->current()->audi_pintura_qto_sla; ?>");
+                        $('#cmbDoor').val("<?php echo $a->current()->audi_porta_qto_sla; ?>");
+                        $('#cmbWindow').val("<?php echo $a->current()->audi_janela_qto_sla; ?>");
+                        $('#cmbTorn').val("<?php echo $a->current()->audi_torneira_coz; ?>");
+                        $('#cmbCif').val("<?php echo $a->current()->audi_cifrao_coz; ?>");
+                        $('#cmbToma').val("<?php echo $a->current()->audi_tomada_coz; ?>");
+                        $('#cmbEmbCozi').val("<?php echo $a->current()->audi_embolso_coz; ?>");
+                        $('#cmbPisCozi').val("<?php echo $a->current()->audi_pisos_coz; ?>");
+                        $('#cmbPrintCozi').val("<?php echo $a->current()->audi_pintura_coz; ?>");
+                        $('#cmbDoorCozi').val("<?php echo $a->current()->audi_porta_coz; ?>");
+                        $('#cmbWindowCozi').val("<?php echo $a->current()->audi_janela_coz; ?>");
+                        $('#cmbTornBanh').val("<?php echo $a->current()->audi_torneira_banh; ?>");
+                        $('#cmbCifBanh').val("<?php echo $a->current()->audi_cifrao_banh; ?>");
+                        $('#cmbVasSani').val("<?php echo $a->current()->audi_vaso_banh; ?>");
+                        $('#cmbChuv').val("<?php echo $a->current()->audi_chuveiro_banh; ?>");
+                        $('#cmbRaloBanh').val("<?php echo $a->current()->audi_ralo_banh; ?>");
+                        $('#cmbTomaBanh').val("<?php echo $a->current()->audi_tomada_banh; ?>");
+                        $('#cmbEmbBanh').val("<?php echo $a->current()->audi_embolso_banh; ?>");
+                        $('#cmbPisBanh').val("<?php echo $a->current()->audi_pisos_banh; ?>");
+                        $('#cmbPrintBanh').val("<?php echo $a->current()->audi_pintura_banh; ?>");
+                        $('#cmbPortaBanh').val("<?php echo $a->current()->audi_porta_banh; ?>");
+                        $('#cmbWindowBanh').val("<?php echo $a->current()->audi_janela_banh; ?>");
+                        $('#cmbTornAreaService').val("<?php echo $a->current()->audi_torneira_area; ?>");
+                        $('#cmbCifAreaService').val("<?php echo $a->current()->audi_cifrao_area; ?>");
+                        $('#cmbTomaAreaServico').val("<?php echo $a->current()->audi_tornada_area; ?>");
+                        $('#cmbPisAreaService').val("<?php echo $a->current()->audi_piso_area; ?>");
+                        $('#cmbPrintAreaService').val("<?php echo $a->current()->audi_pintura_area; ?>");
+                        $('#cmbDoorAreaService').val("<?php echo $a->current()->audi_porta_area; ?>");
+                        $('#cmbWindowAreaService').val("<?php echo $a->current()->audi_janela_area; ?>");
                     });
                 </script>
                 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-validator/validator.min.js"></script>
                 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
-                <script>
-                    function loadSelect() {
-                        //
-                    }
-                </script>
                 <?php
                 $a->next();
             endwhile;
