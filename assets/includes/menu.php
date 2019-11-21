@@ -127,7 +127,7 @@ if ($level === '1') :
                         <span>Configuração</span>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="#">Minha Conta</a></li>
+                        <!-- <li><a href="#">Minha Conta</a></li> -->
                         <li><a href="<?php echo base_url(); ?>usuario">Usuário</a></li>                        
                     </ul>
                 </li>        

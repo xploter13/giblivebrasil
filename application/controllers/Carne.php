@@ -96,7 +96,8 @@ while ($count <= $qtd) {
     <div class=\"grid\">
       <div class=\"col4\">
         <div class=\"destaca\">
-          <table width=\"100%\">
+        <img src='https://giblivebrasil/assets/img/logo.png'>
+          <table width=\"100%\">         
             <tr>
               <td>
                 <small>Parcela</small>

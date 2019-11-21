@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$active_group = 'localhost';
+$active_group = 'production';
 $query_builder = true;
 
 $db['localhost'] = array(

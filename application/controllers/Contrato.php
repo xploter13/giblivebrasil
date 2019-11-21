@@ -13,13 +13,20 @@ class Contrato extends CI_Controller {
     public $_arrData;
     public $_return;
 
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Model_Auditoria');
+        $this->load->model('Model_Contrato');
+    }
+    
+
     public function index() {
-        if (isset($_SESSION['session'])) :
-            $this->load->model('Model_Contrato');
+        if (isset($_SESSION['session'])) :            
             $session = $this->session->userdata('session');
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
             $this->load->view('contrato/view', $data);
         else :
             header('Location: ' . base_url());
@@ -32,7 +39,6 @@ class Contrato extends CI_Controller {
 
     public function emitir() {
         if (isset($_SESSION['session'])) :
-            $this->load->model('Model_Contrato');
             $session = $this->session->userdata('session');
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
@@ -53,17 +59,12 @@ class Contrato extends CI_Controller {
     public function editar($id) {
         if (isset($_SESSION['session'])) :
             //armazena a sessao criada
-            $session = $this->session->userdata('session');
-
-            //retorna todos os imoveis
-            $this->load->model('Model_Auditoria');
+            $session = $this->session->userdata('session');            
             $data['data_imo'] = $this->Model_Auditoria->_selectImoble($session->id);
             $data['data_audi'] = $this->Model_Auditoria->_selectById($id);
-
             //Atribui o nome armazenado na sessao
             $data['name'] = $session->nome;
             $data['level'] = $session->nivel;
-
             $this->load->view('auditoria/editar', $data);
         else :
             header('Location: ' . base_url());
@@ -76,7 +77,6 @@ class Contrato extends CI_Controller {
 
     public function generateContract() {
         if (isset($_SESSION['session'])) :
-            $this->load->model('Model_Contrato');
             $imovel = $this->input->post('cmbImovel');
             $locador = $this->input->post('cmbLocador');
             $locatario = $this->input->post('cmbLocatario');
@@ -85,7 +85,7 @@ class Contrato extends CI_Controller {
             
            /*  $arrLoc = new ArrayIterator($this->_result);
             while ($arrLoc->valid()) : */
-                        $this->_html = '<p style="text-align: center;"><strong>Marcelo Bonifácio &ndash; Corretor de Im&oacute;veis&nbsp;</strong><strong>CRECI 65656 \ RJ&nbsp;</strong><strong>Tel.: 98835-2689 \ 99301-5954</strong></p>
+            $this->_html = '<p style="text-align: center;"><strong>{Nome do corretor} &ndash; Corretor de Im&oacute;veis&nbsp;</strong><strong>CRECI {número} \ RJ&nbsp;</strong><strong>Tel.: {telefone} \ {telefone}</strong></p>
                     <h2 id="mcetoc_1ba09lrtg1" style="text-align: center;"><strong><span style="color: #000000;">CONTRATO DE LOCA&Ccedil;&Atilde;O COMERCIAL</span></strong></h2>
                     <p><strong><u>LOCADOR:</u></strong> &nbsp;<strong><u style="text-transform: uppercase;">' . $locador . '</u></strong>, brasileiro, casado, empres&aacute;rio, portador da carteira de identidade n&ordm; 04280134-0 IFP/RJ, inscrito no CPF/MF sob o n&ordm; 470.473.307-63 e sua esposa <strong><u>[NOME]</u></strong>, brasileira, casada, comerciante, portadora da carteira de identidade n&ordm;04379959-7 IFP/RJ, inscrita no CPF/MF sob o n&ordm; 014.346.147-68, AMBOS RESIDENTES &Agrave; Rua: Cristiano Otoni, n&ordm;490, Centro, Barra do Pira&iacute;.&nbsp;&nbsp;</p>
                     <p><strong><u>LOCAT&Aacute;RIO:</u></strong> &nbsp;<strong><u style="text-transform: uppercase;">'. $locatario .'</u></strong>, brasileiro, casado, T&eacute;cnico em Contabilidade, residente e domiciliado sito &aacute; Travessa Ernestina Braga, 67, FD, Bairro Carv&atilde;o, Barra do Pira&iacute; &ndash; RJ, portador da Carteira de Identidade n&uacute;mero 066806951 IFP &ndash; RJ, CRC &ndash; RJ 110993/O7, CPF n&uacute;mero 919.092.287-53.</p>
@@ -124,11 +124,11 @@ class Contrato extends CI_Controller {
                     <p><strong>&nbsp;</strong></p>
                     <p><strong>TESTEMUNHAS</strong></p>
                     <p>____________________________</p>
-                    <p>MARCELO BONIF&Aacute;CIO DA SILVA</p>
+                    <p>{NOME CORRETOR}</p>
                     <p>CRECI 065656 - RJ</p>
                     <p>&nbsp;_______________________________</p>
-                    <p>ALECSANDRA RODRIGUES DA SILVA</p>
-                    <p>CPF 051.641.887-40</p>';
+                    <p>{TESTEMUNHA}</p>
+                    <p>CPF {números}</p>';
                 /* $arrLoc->next();
             endwhile; */
 
@@ -149,22 +149,16 @@ class Contrato extends CI_Controller {
 
     public function setInsert() {
         $session = $this->session->userdata('session');
-        $this->load->model('Model_Contrato');
-
         $this->imovel = $this->input->post('cmbImovel');
-
         $this->_arrdata = array(
             "id_usuario" => $session->id,
             "id_imovel" => "$this->imovel",
             "audi_data_cadastro" => date('d/m/Y')
         );
-
 //        echo "<pre>";
 //        print_r($this->_arrdata);
 //        echo "</pre>";
-
         $this->_return = $this->Model_Contrato->_insert($this->_arrdata);
-
         if ($this->_return) :
             echo 'TRUE';
         else :
@@ -178,12 +172,8 @@ class Contrato extends CI_Controller {
 
     public function setEdit() {
         $session = $this->session->userdata('session');
-        $this->load->model('Model_Auditoria');
-
         $this->id = $this->input->post('edtID');
-
         $this->imovel = $this->input->post('cmbImovel');
-
         // Quarto e Sala
         $this->tomadaSlaQto = $this->input->post('cmbQtoSala');
         $this->embolsoSlaQto = $this->input->post('cmbEmbolso');
@@ -224,8 +214,6 @@ class Contrato extends CI_Controller {
         $this->portaAreaServico = $this->input->post('cmbPortaAreaServico');
         $this->janelaAreaServico = $this->input->post('cmbJanelaAreaServico');
         $this->obsAreaServico = $this->input->post('cmbObsAreaServico');
-
-
         $this->_arrdata = array(
             "id_usuario" => $session->id,
             "id_imovel" => "$this->imovel",
@@ -273,7 +261,6 @@ class Contrato extends CI_Controller {
 //        echo "</pre>";
 
         $this->_return = $this->Model_Auditoria->_edit($this->id, $this->_arrdata);
-
         if ($this->_return) :
             echo 'TRUE';
         else :
@@ -286,11 +273,8 @@ class Contrato extends CI_Controller {
      */
 
     public function setDelete() {
-        $this->load->model('Model_Auditoria');
         $this->id = $this->input->post('id');
-
         $this->_return = $this->Model_Auditoria->_delete($this->id);
-
         if ($this->_return) :
             echo "TRUE";
         else :
